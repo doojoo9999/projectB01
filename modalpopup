@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>popup</title>
+
+
+
+    <style>
+        /* 모달의 기본 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        /* 모달 내용의 스타일 */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 상세 보기 링크 -->
+    <a id="myLink">상세 보기</a>
+
+    <!-- 모달 -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <p>
+                <img src="https://i.namu.wiki/i/a-LkJQUeeI0XJ2KhcWP_POKfq-t0alqliMqcXrSrwbxEStqYIpDhThYLxIsTiRHfcX8ybEqj5rTlrxoCJC3SQuSVoWylXRDek_PQwjGxmhGTo5INCJC7LSk8N9_MaxyOfoWxq4k7Modg82HJHyVyrw.svg" width: 200px>
+            내용을 입력하는 곳
+            
+            </p>
+        </div>
+
+        <script>
+            // 상세 보기 링크
+            var link = document.getElementById("myLink");
+    
+            // 모달
+            var modal = document.getElementById("myModal");
+    
+            // 상세 보기 링크를 클릭하면 모달을 표시
+            link.onclick = function() {
+                modal.style.display = "block";
+            }
+    
+            // 사용자가 모달 외부를 클릭하면 모달을 숨김
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+    </div>
+
+
+</body>
+
+</html>
