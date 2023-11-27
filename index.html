@@ -5,26 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>popup</title>
-    
-    <script>
-        // 상세 보기 링크
-        var link = document.getElementById("myLink");
 
-        // 모달
-        var modal = document.getElementById("myModal");
 
-        // 상세 보기 링크를 클릭하면 모달을 표시
-        link.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        // 사용자가 모달 외부를 클릭하면 모달을 숨김
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
 
     <style>
         /* 모달의 기본 스타일 */
@@ -58,8 +40,32 @@
     <!-- 모달 -->
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <p>여기에 상세 데이터를 표시합니다.</p>
+            <p>
+                <img src="https://i.namu.wiki/i/a-LkJQUeeI0XJ2KhcWP_POKfq-t0alqliMqcXrSrwbxEStqYIpDhThYLxIsTiRHfcX8ybEqj5rTlrxoCJC3SQuSVoWylXRDek_PQwjGxmhGTo5INCJC7LSk8N9_MaxyOfoWxq4k7Modg82HJHyVyrw.svg" width: 200px>
+            내용을 입력하는 곳
+            
+            </p>
         </div>
+
+        <script>
+            // 상세 보기 링크
+            var link = document.getElementById("myLink");
+    
+            // 모달
+            var modal = document.getElementById("myModal");
+    
+            // 상세 보기 링크를 클릭하면 모달을 표시
+            link.onclick = function() {
+                modal.style.display = "block";
+            }
+    
+            // 사용자가 모달 외부를 클릭하면 모달을 숨김
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
     </div>
 
 
