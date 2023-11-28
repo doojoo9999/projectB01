@@ -9,6 +9,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
+
+        * {
+            font-family: 'Noto Sans KR', serif;
+            font-size: 14px;
+            outline: none;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -55,36 +63,33 @@
             width: 1000px;
 
             margin: 30px auto 0px auto;
+        }
 
 
-            * {
-                font-family: 'Noto Sans KR', serif;
-                font-size: 14px;
-                outline: none;
-            }
 
-            .popup {
-                width: 400px;
-                margin: auto;
-                padding: 0 20px;
-                margin-bottom: 20px;
-            }
+        .popup {
+            width: 400px;
+            margin: auto;
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
 
-            .popup>input-group-text {
-                margin-bottom: 30px;
-            }
+        .popup>input-group-text {
+            margin-bottom: 30px;
+        }
 
-            .popup>form-control {
-                margin-bottom: 15px;
-            }
+        .popup>form-control {
+            margin-bottom: 15px;
+        }
 
-            /* 모달의 기본 스타일 */
-            .modal {
+        /* 모달의 기본 스타일 */
+        .modal {
                 display: none;
                 position: fixed;
                 z-index: 1;
-                left: 0;
-                top: 0;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
                 width: 100%;
                 height: 100%;
                 overflow: auto;
@@ -97,9 +102,9 @@
                 margin: 15% auto;
                 padding: 20px;
                 border: 1px solid #888;
-                width: 80%;
+                width: 100%;
+                border-radius: 15px;
             }
-        }
     </style>
     <script type="module">
         // 상세 보기 링크
