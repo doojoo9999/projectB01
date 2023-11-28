@@ -120,11 +120,13 @@
         // 상세 보기 링크
         var link = $("#myLink");
 
+
         // 모달
         var modal = $("#myModal");
 
         // 상세 보기 링크를 클릭하면 모달을 표시
         link.click(function () {
+            resetForm();
             modal.css("display", "block");
             centerModal();
         });
@@ -185,13 +187,15 @@
             document.getElementById("pors").value = "";
             document.getElementById("collabo").value = "";
             document.getElementById("blog").value = "";
+
+            $(".modal input").prop("disabled", false);
+            $(".modal select").prop("disabled", false);
         }
 
         // 사용자가 모달 외부를 클릭하면 모달을 숨김
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
-                resetForm();
             }
         }
 
@@ -223,7 +227,9 @@
             $('#blog').val(blog);
 
             // Show the popup
-            modal.style.display = "block";
+            modal.show();
+            $(".modal input").prop("disabled", true);
+            $(".modal select").prop("disabled", true);
         });
 
         // Firebase SDK 라이브러리 가져오기
@@ -367,7 +373,7 @@
 
     </div>
 
-   <!-- 모달 -->
+    <!-- 모달 -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <div class="popup">
@@ -439,14 +445,13 @@
                 <input type="text" id="blog" class="form-control" aria-describedby="blogHelp">
                 <div id="blogHelp" class="form-text">블로그 주소를 써 주세요.</div>
             </div>
-        
+
             <button id="savebtn" type="button">등록</button>
             </p>
         </div>
-        </div>
     </div>
-            </div>
-        </div>
+    </div>
+    </div>
+    </div>
 </body>
-
 </html>
