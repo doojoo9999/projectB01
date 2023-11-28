@@ -113,10 +113,23 @@
             modal.style.display = "block";
         }
 
+        function resetForm() {
+            document.getElementById("image").value = "";
+            document.getElementById("name").value = "";
+            document.getElementById("year").value = "";
+            document.getElementById("month").value = "";
+            document.getElementById("day").value = "";
+            document.getElementById("mbti").value = "";
+            document.getElementById("introduce").value = "";
+            document.getElementById("pors").value = "";
+            document.getElementById("collabo").value = "";
+            document.getElementById("blog").value = "";
+        }
         // 사용자가 모달 외부를 클릭하면 모달을 숨김
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
+                resetForm();
             }
         }
 
@@ -124,7 +137,39 @@
         const closeModalBtn = document.getElementById('closeModalBtn');
         closeModalBtn.addEventListener('click', () => {
             modal.style.display = 'none';
+            resetForm();
         })
+
+        $('#update_card').on('click', '.card', function () {
+            // Extract data from the clicked card
+            let card = $(this);
+            let imageUrl = card.data('image');
+            let name = card.find('.card-title').text();
+            let yearMonthDay = card.find('.card-text:nth(0)').text().split('/');
+            let year = yearMonthDay[0].trim();
+            let month = yearMonthDay[1].trim();
+            let day = yearMonthDay[2].trim();
+            let mbti = card.find('.card-text:nth(1)').text().split(':')[1].trim();
+            let introduce = card.find('.card-text:nth(2)').text().split(':')[1].trim();
+            let pros = card.find('.card-text:nth(3)').text().split(':')[1].trim();
+            let collabo = card.find('.card-text:nth(4)').text().split(':')[1].trim();
+            let blog = card.find('.card-text:nth(5)').text().split(':')[1].trim();
+
+            // Populate the popup content with extracted data
+            $('#image').val(imageUrl); // You may want to add a field for the image
+            $('#name').val(name);
+            $('#year').val(year);
+            $('#month').val(month);
+            $('#day').val(day);
+            $('#mbti').val(mbti);
+            $('#introduce').val(introduce);
+            $('#pors').val(pros);
+            $('#collabo').val(collabo);
+            $('#blog').val(blog);
+
+            // Show the popup
+            modal.style.display = "block";
+        });
 
         // Firebase SDK 라이브러리 가져오기
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
@@ -148,9 +193,6 @@
 
         $("#savebtn").click(async function () {
             let image = $('#image').val();
-            if (image === '') {
-                image = image = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgGCQkKBwoHBwYGBxsIFQgKIB0WIiAdHx8YIiggGBolGxMfITEhJSkrLi4uFx8zODMsNygtLisBCgoKDQ0NDg0NDysZFRkrLSsrKystKysrKysrKysrKysrKysrKysrKysrKy0rKysrKysrKysrKysrKysrKysrK//AABEIAOYA2wMBIgACEQEDEQH/xAAaAAEAAwEBAQAAAAAAAAAAAAAAAwQFAgEG/8QAOxABAQABAwEEBQcKBwAAAAAAAAIDAQQSMgUiUnIxM0JRYhNBcYKRorEUIyRTkpOhwdHhERUhNGFjgf/EABgBAQEBAQEAAAAAAAAAAAAAAAADAgEE/8QAHBEBAQEBAQADAQAAAAAAAAAAAAECETESIUFR/9oADAMBAAIRAxEAPwD64B73kAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB1wvwZf2NXOoAAAAAAAAAAAAAAAAAAAAAACXBt73Ffm57vtVXolJs9rW4vlXRp1V4v+NGvEzEaTM8Z06ZY1rjUz1Vw7DFHrPzlfF6PsWpmZ6ZifLL0Tttb4OaiL6pmvNLocFLP2fjr1fcrw/MzsuLJhrjknj+FfQ3nGbFGaOGSe7/Gfobm7GblgiXcYK2+TjXT7NeKUSrAAAAAAAAAAAAAAAAA6xxV5Jxz1a1xcr3ZOPlku/dPGfNq5byEjRxY5w49Mc9OjoEFQAAAAAEG8wflGCp9rTvR5mK+hY2/x8Nxfh178/wDqmL+M6iuAowAAAAAAAAAAAAAANXsvT9GqvfdMprdl6/o/0XTO/Gs+rYCLYAAAAAAze1tO9ir4alpM7tbXvY5+Gq/BrPrmvGeAsmAAAAAAAAAAAAAANDsnJ3rj39+f5s93gusOTS5+av2pc1Ox2X7bw5i5udLnp1nk6QUAAAAAAGP2jk57ivDEzH9Wnus07fBV+10z8VMTXXl3vepifrOq8AUYAAAAAAAAAAAAAAAAWtluvyeuNer1+7Xva06zU8prlOvhfPptvuMu36e9P6mvQxrPWpptirh32G+quFeGvR9qzprNdNcvLSdnG+vQeVUz1VpPmpweucmScMVeSuM6K2bfYo9X36+H0fazc+a9xXLJXlnp0luZtcunW63FbjJy6Z06J8MoQVTAAAAAAAAAAAAAAAAAAASY8GW+mKr4uP8AoCN7prU9NVPlpans/NXV8nP1kmnZl+1ln6s6ufKO8qn8rl/WZf3mrnXWq6q5eal//LP+37n93OvZl+zl0rzTq58ocqiLV7DcT7M15aV6x3HrMes+aXexzjkB0AAAAAAAAAAAAAAAS4MF7i+M/Wr5pBHppy7s97yrmDs+772auE+H513bbWNvHd71+1lr0p07v+NzKHFtcOHpjTl4q72qYGGgBwAADXQAVs2xw30zwrxY/wCihn2eXF3uuPFP89GwNTVjlzHzw1d1sZvv4/8ACL/hTLqai6mp41p1SrNSsWceAOuAAAAAAAAAOscVdTE9WtcQd7bBW4ycZ6farwy2cWPHijhjnjLzb4Z2+PTHP1q8VJEda6pJwAZdAAAAAAAAAAEG6207ifDenTScdGBU1FVFTxrRy19/tvlsfKeuPvT7mQtm9Ts4AOuAAAAAADS7Mw8ZrLXVr3Y8rPiedaRPVrUy3omYiZnp0mZljd+msx6Ak2AAAAAAAAAAAAAAMntHBwz856b+7TWQbzF8rtrn2tO9Pm0azeVyzsYoCyYAAAAAC32ZHLccvBNV9ZrKHZE93JXxTK+ju/amfABl0AAAAAAAAAAAAAAABhbmOGe8furu+X0o1vtOeO45e+JVF54lfQB0AAAAa3Zf+2rz1+Gi2COvVJ4AMugAAAAAAAAAAAAAAAM3tb1mP6K/FQBbPid9AGnH/9k="
-            }
             let name = $('#name').val();
             let year = $('#year').val();
             // let month = $('#month').val();
@@ -195,10 +237,13 @@
             let pros = row['pros'];
             let collabo = row['collabo'];
             let blog = row['blog'];
+            console.log(month);
+
+            let imageUrl = isValidUrl(image) ? image : 'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/7r5X/image/9djEiPBPMLu_IvCYyvRPwmZkM1g.jpg'
             let temp_html = `
                 <div class="col">
-                        <div class="card h-100">
-                            <img src="${image}"
+                        <div class="card h-100" data-image = "${imageUrl}">
+                            <img src="${imageUrl}"
                                 class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h6 class="card-title">${name}</h6>
@@ -213,6 +258,14 @@
                     </div>`;
             $('#update_card').prepend(temp_html);
         });
+        function isValidUrl(str) {
+            try {
+                new URL(str);
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
     </script>
 </head>
 
