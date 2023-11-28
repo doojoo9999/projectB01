@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비공일</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .image-container {
+            width: 500px;
+            height: 400px;
+            background-color: green;
+        }
+
+        .text-container {
+            width: 50%;
+            height: auto;
+            box-sizing: border-box;
+            margin-left: 10px;
+        }
+
+        .content-save {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mycards {
+            width: 1000px;
+
+            margin: 30px auto 0px auto;
+        }
+
+        * {
+            font-family: 'Noto Sans KR', serif;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .popup {
+            width: 400px;
+            margin: auto;
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+
+        .popup>input-group-text {
+            margin-bottom: 30px;
+        }
+
+        .popup>form-control {
+            margin-bottom: 15px;
+        }
+
+        /* 모달의 기본 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* 모달 내용의 스타일 */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        }
+    </style>
+    <script type="module">
+        $(document).ready(function () {
+            // Firebase SDK 라이브러리 가져오기
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+            import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+            import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+            import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+            // Firebase 구성 정보 설정
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+                apiKey: "AIzaSyDejbvZUV3PTmzetChXb67VlznbLVh71Sc",
+                authDomain: "sparta-971d8.firebaseapp.com",
+                projectId: "sparta-971d8",
+                storageBucket: "sparta-971d8.appspot.com",
+                messagingSenderId: "495633994677",
+                appId: "1:495633994677:web:e6b97de67c586b4f6bfffc",
+                measurementId: "G-TS5RNHZ8DM"
+            };
+            // Firebase 인스턴스 초기화
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+
+
+            // 상세 보기 링크
+            var link = document.getElementById("myLink");
+
+            // 모달
+            var modal = document.getElementById("myModal");
+
+            // 상세 보기 링크를 클릭하면 모달을 표시
+            link.onclick = function () {
+                modal.style.display = "block";
+            }
+
+            // 사용자가 모달 외부를 클릭하면 모달을 숨김
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+
+            $("#savebtn").click(async function () {
+                let image = $('#image').val();
+                let name = $('#name').val();
+                let year = $('#year').val();
+                let month = $('#month').val();
+                let day = $('#day').val();
+                let mbti = $('#mbti').val();
+                let introduce = $('#introduce').val();
+                let pors = $('#pors').val();
+                let collabo = $('#collabo').val();
+                let blog = $('#blog').val();
+
+                let doc = {
+                    'image': image,
+                    'name': name,
+                    'year': year,
+                    'month': month,
+                    'day': day,
+                    'mbti': mbti,
+                    'introduce': introduce,
+                    'pors': pors,
+                    'collabo': collabo,
+                    'blog': blog
+                };
+                await addDoc(collection(db, "self_intro"), doc);
+                alert('저장 완료');
+                window.location.reload();
+                console.log("저장완료")
+            })
+    </script>
+</head>
+
+<body>
+
+    <header>
+        <h1>비공일</h1>
+    </header>
+
+    <div class="content-container">
+        <div class="image-container">
+            <img src="" alt="이미지">
+        </div>
+        <div class="text-container">
+            <h3>팀 소개</h3>
+            <p>팀이름 : 비공일</p>
+            <p>팀특징 : 열정!열정!!열정!!!</p>
+            <p>팀목표 : 프로젝트 마지막까지 서로 끌어주고 밀어주고 잘 굴러가는 팀이 되자.</p>
+            <p>우리 팀의 약속</p>
+            <p>지각, 무단이탈 등 중도 하차/포기 금지</p>
+            <p>좋은 건 다같이.. 모르는 것도 다 같이..</p>
+            <p>아.., 후…, 씁…?, 하… 금지</p>
+            <p>일단 해 보기</p>
+            <p>일정 생기면 사전에 팀원에게 알리기</p>
+        </div>
+    </div>
+    <!-- 상세 보기 링크 -->
+    <div class="content-save">
+        <button type="button" id="myLink" class="btn btn-primary btn-lg">등록하기</button>
+    </div>
+
+    <!-- 모달 -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <p>
+            <div class="popup">
+                <div class="joinus">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">사진</span><br>
+                        <input type="text" id="image" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">이름</span><br>
+                        <input type="text" id="name" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">생년월일</span><br>
+                        <input type="number" id="year" placeholder="년(4자)" class="form-control">
+                        <select id="month">
+                            <option value="">월</option>"
+                            <option value="">1월</option>"
+                            <option value="">2월</option>"
+                            <option value="">3월</option>"
+                            <option value="">4월</option>"
+                            <option value="">5월</option>"
+                            <option value="">6월</option>"
+                            <option value="">7월</option>"
+                            <option value="">8월</option>"
+                            <option value="">9월</option>"
+                            <option value="">10월</option>"
+                            <option value="">11월</option>"
+                            <option value="">12월</option>"
+                        </select>
+                        <input type="number" id="day" placeholder="일" class="form-control">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">MBTI</span><br>
+                        <input type="text" id="mbti" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">자기소개</span><br>
+                        <input type="text" id="introduce" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">나의 장점</span><br>
+                        <input type="text" id="pors" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">협업 스타일 소개</span><br>
+                            <input type="text" id="collabo" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">블로그 주소</span><br>
+                            <input type="text" id="blog" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default">
+                        </div>
+
+                        <button id="savebtn" type="button">등록</button>
+
+                        </p>
+                    </div>
+
+
+                </div>
+                <div>
+                </div>
+                <div class="mycards">
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://images.unsplash.com/photo-1446768500601-ac47e5ec3719?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">이름</h5>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://images.unsplash.com/photo-1446768500601-ac47e5ec3719?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">이름</h5>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://images.unsplash.com/photo-1446768500601-ac47e5ec3719?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">이름</h5>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://images.unsplash.com/photo-1446768500601-ac47e5ec3719?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">이름</h5>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="https://images.unsplash.com/photo-1446768500601-ac47e5ec3719?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80"
+                                    class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">이름</h5>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+</body>
+
+</html>
