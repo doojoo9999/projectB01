@@ -9,6 +9,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
+         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
+                * {
+            font-family: 'Noto Sans KR', serif;
+            font-size: 14px;
+             outline: none;
+        }
         body {
             margin: 0;
             padding: 0;
@@ -55,53 +61,68 @@
             width: 1000px;
 
             margin: 30px auto 0px auto;
-
-
-            * {
-            font-family: 'Noto Sans KR', serif;
-            font-size: 14px;
-            outline: none;
         }
 
-        .popup {
-            width: 400px;
-            margin: auto;
-            padding: 0 20px;
-            margin-bottom: 20px;
-        }
 
-        .popup > input-group-text {
-            margin-bottom: 30px;
-        }
 
-        .popup > form-control {
-            margin-bottom: 15px;
-        }
+            .popup {
+                width: 400px;
+                margin: auto;
+                padding: 0 20px;
+                margin-bottom: 20px;
+            }
 
-        /* 모달의 기본 스타일 */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
+            .popup>input-group-text {
+                margin-bottom: 30px;
+            }
 
-        /* 모달 내용의 스타일 */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-        }
+            .popup>form-control {
+                margin-bottom: 15px;
+            }
+
+            /* 모달의 기본 스타일 */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+
+            /* 모달 내용의 스타일 */
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 50%;
+                border-radius: 15px;
+            }
+        
     </style>
-        <script type="module">
+    <script type="module">
+        // 상세 보기 링크
+        var link = document.getElementById("myLink");
+
+        // 모달
+        var modal = document.getElementById("myModal");
+
+        // 상세 보기 링크를 클릭하면 모달을 표시
+        link.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // 사용자가 모달 외부를 클릭하면 모달을 숨김
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
         // Firebase SDK 라이브러리 가져오기
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
@@ -151,7 +172,7 @@
             window.location.reload();
             console.log("저장완료")
         })
-        </script>
+    </script>
 
 </head>
 
@@ -179,7 +200,7 @@
         </div>
     </div>
     <!-- 상세 보기 링크 -->
-    <div class="content-save" >
+    <div class="content-save">
         <button type="button" id="myLink" class="btn btn-primary btn-lg">등록하기</button>
     </div>
     <div class="mycards">
@@ -242,91 +263,72 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <p>
-        <div class="popup">
-            <div class="joinus">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">사진</span><br>
-                    <input type="text" id="image" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default">
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">이름</span><br>
-                    <input type="text" id="name" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default">
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">생년월일</span><br>
-                    <input type="number" id="year" placeholder="년(4자)" class="form-control">
-                    <select id="month">
-                        <option value="">월</option>"
-                        <option value="">1월</option>"
-                        <option value="">2월</option>"
-                        <option value="">3월</option>"
-                        <option value="">4월</option>"
-                        <option value="">5월</option>"
-                        <option value="">6월</option>"
-                        <option value="">7월</option>"
-                        <option value="">8월</option>"
-                        <option value="">9월</option>"
-                        <option value="">10월</option>"
-                        <option value="">11월</option>"
-                        <option value="">12월</option>"
-                    </select>
-                    <input type="number" id="day" placeholder="일" class="form-control">
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">MBTI</span><br>
-                    <input type="text" id="mbti" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default">
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">자기소개</span><br>
-                    <input type="text" id="introduce" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default">
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">나의 장점</span><br>
-                    <input type="text" id="pors" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default">
+            <div class="popup">
+                <div class="joinus">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">협업 스타일 소개</span><br>
-                        <input type="text" id="collabo" class="form-control" aria-label="Sizing example input"
+                        <span class="input-group-text" id="inputGroup-sizing-default">사진</span><br>
+                        <input type="text" id="image" class="form-control" aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-default">
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">블로그 주소</span><br>
-                        <input type="text" id="blog" class="form-control" aria-label="Sizing example input"
+                        <span class="input-group-text" id="inputGroup-sizing-default">이름</span><br>
+                        <input type="text" id="name" class="form-control" aria-label="Sizing example input"
                             aria-describedby="inputGroup-sizing-default">
                     </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">생년월일</span><br>
+                        <input type="number" id="year" placeholder="년(4자)" class="form-control">
+                        <select id="month">
+                            <option value="">월</option>"
+                            <option value="">1월</option>"
+                            <option value="">2월</option>"
+                            <option value="">3월</option>"
+                            <option value="">4월</option>"
+                            <option value="">5월</option>"
+                            <option value="">6월</option>"
+                            <option value="">7월</option>"
+                            <option value="">8월</option>"
+                            <option value="">9월</option>"
+                            <option value="">10월</option>"
+                            <option value="">11월</option>"
+                            <option value="">12월</option>"
+                        </select>
+                        <input type="number" id="day" placeholder="일" class="form-control">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">MBTI</span><br>
+                        <input type="text" id="mbti" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">자기소개</span><br>
+                        <input type="text" id="introduce" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">나의 장점</span><br>
+                        <input type="text" id="pors" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">협업 스타일 소개</span><br>
+                            <input type="text" id="collabo" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-default">블로그 주소</span><br>
+                            <input type="text" id="blog" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default">
+                        </div>
 
-                    <button id="savebtn" type="button">등록</button>
+                        <button id="savebtn" type="button">등록</button>
 
-                    </p>
+                        </p>
+                    </div>
+
                 </div>
-
-                <script>
-                    // 상세 보기 링크
-                    var link = document.getElementById("myLink");
-
-                    // 모달
-                    var modal = document.getElementById("myModal");
-
-                    // 상세 보기 링크를 클릭하면 모달을 표시
-                    link.onclick = function () {
-                        modal.style.display = "block";
-                    }
-
-                    // 사용자가 모달 외부를 클릭하면 모달을 숨김
-                    window.onclick = function (event) {
-                        if (event.target == modal) {
-                            modal.style.display = "none";
-                        }
-                    }
-                </script>
+                <div>
+                </div>
             </div>
-<div>
-    </div>
-    </div>
 </body>
 
 </html>
