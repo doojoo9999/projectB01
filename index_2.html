@@ -69,20 +69,27 @@
             height: 250px;
          }   
 
-            .popup {
-                width: 400px;
-                margin: auto;
-                padding: 0 20px;
-                margin-bottom: 20px;
-            }
+                .popup .form-item{
+            margin-bottom: 8px;
+            display: flex;
+            flex-direction: column;
+        }
 
-            .popup>input-group-text {
-                margin-bottom: 30px;
-            }
+        .popup .form-item input,
+        .popup .form-item select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
 
-            .popup>form-control {
-                margin-bottom: 15px;
-            }
+        .popup .form-item .input-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .popup .form-item .input-group input {
+            flex: 1;
+        }
 
              /* 모달의 기본 스타일 */
         .modal {
