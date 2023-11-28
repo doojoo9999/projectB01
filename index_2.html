@@ -9,14 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
-
-        * {
-            font-family: 'Noto Sans KR', serif;
-            font-size: 14px;
-            outline: none;
-        }
-
         body {
             margin: 0;
             padding: 0;
@@ -63,33 +55,36 @@
             width: 1000px;
 
             margin: 30px auto 0px auto;
-        }
 
 
+            * {
+                font-family: 'Noto Sans KR', serif;
+                font-size: 14px;
+                outline: none;
+            }
 
-        .popup {
-            width: 400px;
-            margin: auto;
-            padding: 0 20px;
-            margin-bottom: 20px;
-        }
+            .popup {
+                width: 400px;
+                margin: auto;
+                padding: 0 20px;
+                margin-bottom: 20px;
+            }
 
-        .popup>input-group-text {
-            margin-bottom: 30px;
-        }
+            .popup>input-group-text {
+                margin-bottom: 30px;
+            }
 
-        .popup>form-control {
-            margin-bottom: 15px;
-        }
+            .popup>form-control {
+                margin-bottom: 15px;
+            }
 
-        /* 모달의 기본 스타일 */
-        .modal {
+            /* 모달의 기본 스타일 */
+            .modal {
                 display: none;
                 position: fixed;
                 z-index: 1;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
+                left: 0;
+                top: 0;
                 width: 100%;
                 height: 100%;
                 overflow: auto;
@@ -102,9 +97,9 @@
                 margin: 15% auto;
                 padding: 20px;
                 border: 1px solid #888;
-                width: 30%;
-                border-radius: 15px;
+                width: 80%;
             }
+        }
     </style>
     <script type="module">
         // 상세 보기 링크
@@ -125,6 +120,11 @@
             }
         }
 
+        // 모달 닫기 버튼 클릭 시 이벤트 처리
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        })
 
         // Firebase SDK 라이브러리 가져오기
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
@@ -150,7 +150,9 @@
             let image = $('#image').val();
             let name = $('#name').val();
             let year = $('#year').val();
-            let month = $('#month').val();
+            // let month = $('#month').val();
+            var m = document.getElementById("month");
+            var month = m.value;
             let day = $('#day').val();
             let mbti = $('#mbti').val();
             let introduce = $('#introduce').val();
@@ -183,9 +185,7 @@
             let image = row['image'];
             let name = row['name'];
             let year = row['year'];
-            // let month = row['month'];
-            const month_num = document.getElementById('month');
-            let month = month_num.options[month_num.selectedIndex].value;
+            let month = row['month'];
             let day = row['day'];
             let mbti = row['mbti'];
             let introduce = row['introduce'];
@@ -209,7 +209,7 @@
                             </div>
                         </div>
                     </div>`;
-            $('#update_card').append(temp_html);
+            $('#update_card').prepend(temp_html);
         });
     </script>
 </head>
@@ -242,7 +242,7 @@
         <button type="button" id="myLink" class="btn btn-primary btn-lg">등록하기</button>
     </div>
     <div class="mycards">
-        <div id="update_card" class="row row-cols-1 row-cols-md-4 g-4">
+        <div id="update_card" class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col">
                 <!-- <div class="card h-100">
                     <img src="https://images.unsplash.com/photo-1446768500601-ac47e5ec3719?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80"
@@ -277,19 +277,19 @@
                         <span class="input-group-text" id="inputGroup-sizing-default">생년월일</span><br>
                         <input type="number" id="year" placeholder="년(4자)" class="form-control">
                         <select id="month">
-                            <option value="">월</option>"
-                            <option value="">1월</option>"
-                            <option value="">2월</option>"
-                            <option value="">3월</option>"
-                            <option value="">4월</option>"
-                            <option value="">5월</option>"
-                            <option value="">6월</option>"
-                            <option value="">7월</option>"
-                            <option value="">8월</option>"
-                            <option value="">9월</option>"
-                            <option value="">10월</option>"
-                            <option value="">11월</option>"
-                            <option value="">12월</option>"
+                            <option value="">월</option>
+                            <option value="1">1월</option>
+                            <option value="2">2월</option>
+                            <option value="3">3월</option>
+                            <option value="4">4월</option>
+                            <option value="5">5월</option>
+                            <option value="6">6월</option>
+                            <option value="7">7월</option>
+                            <option value="8">8월</option>
+                            <option value="9">9월</option>
+                            <option value="10">10월</option>
+                            <option value="11">11월</option>
+                            <option value="12">12월</option>
                         </select>
                         <input type="number" id="day" placeholder="일" class="form-control">
                     </div>
@@ -318,6 +318,7 @@
                                 aria-describedby="inputGroup-sizing-default">
                         </div>
                         <button id="savebtn" tpye="button">등록</button>
+                        <button id="closeModalBtn">닫기</button>
                         </p>
                     </div>
                 </div>
