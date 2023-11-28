@@ -113,10 +113,23 @@
             modal.style.display = "block";
         }
 
+        function resetForm() {
+            document.getElementById("image").value = "";
+            document.getElementById("name").value = "";
+            document.getElementById("year").value = "";
+            document.getElementById("month").value = "";
+            document.getElementById("day").value = "";
+            document.getElementById("mbti").value = "";
+            document.getElementById("introduce").value = "";
+            document.getElementById("pors").value = "";
+            document.getElementById("collabo").value = "";
+            document.getElementById("blog").value = "";
+        }
         // 사용자가 모달 외부를 클릭하면 모달을 숨김
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
+                resetForm();
             }
         }
 
@@ -124,7 +137,39 @@
         const closeModalBtn = document.getElementById('closeModalBtn');
         closeModalBtn.addEventListener('click', () => {
             modal.style.display = 'none';
+            resetForm();
         })
+
+        $('#update_card').on('click', '.card', function () {
+            // Extract data from the clicked card
+            let card = $(this);
+            let imageUrl = card.data('image');
+            let name = card.find('.card-title').text();
+            let yearMonthDay = card.find('.card-text:nth(0)').text().split('/');
+            let year = yearMonthDay[0].trim();
+            let month = yearMonthDay[1].trim();
+            let day = yearMonthDay[2].trim();
+            let mbti = card.find('.card-text:nth(1)').text().split(':')[1].trim();
+            let introduce = card.find('.card-text:nth(2)').text().split(':')[1].trim();
+            let pros = card.find('.card-text:nth(3)').text().split(':')[1].trim();
+            let collabo = card.find('.card-text:nth(4)').text().split(':')[1].trim();
+            let blog = card.find('.card-text:nth(5)').text().split(':')[1].trim();
+
+            // Populate the popup content with extracted data
+            $('#image').val(imageUrl); // You may want to add a field for the image
+            $('#name').val(name);
+            $('#year').val(year);
+            $('#month').val(month);
+            $('#day').val(day);
+            $('#mbti').val(mbti);
+            $('#introduce').val(introduce);
+            $('#pors').val(pros);
+            $('#collabo').val(collabo);
+            $('#blog').val(blog);
+
+            // Show the popup
+            modal.style.display = "block";
+        });
 
         // Firebase SDK 라이브러리 가져오기
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
@@ -195,7 +240,7 @@
             console.log(month);
             let temp_html = `
                 <div class="col">
-                        <div class="card h-100">
+                        <div class="card h-100" data-image = "${image}">
                             <img src="${image}"
                                 class="card-img-top" alt="...">
                             <div class="card-body">
