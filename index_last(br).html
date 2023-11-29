@@ -129,7 +129,42 @@
             resetForm();
             modal.css("display", "block");
             centerModal();
+
+            // 항상 등록 버튼이게 바꿈
             $('#savebtn').text('등록');
+
+            // 등록 버튼을 눌러 저장
+            $("#savebtn").click(async function () {
+                let image = $('#image').val();
+                let name = $('#name').val();
+                let year = $('#year').val();
+                // let month = $('#month').val();
+                var m = document.getElementById("month");
+                var month = m.value;
+                let day = $('#day').val();
+                let mbti = $('#mbti').val();
+                let introduce = $('#introduce').val();
+                let pors = $('#pors').val();
+                let collabo = $('#collabo').val();
+                let blog = $('#blog').val();
+
+                let doc = {
+                    'image': image,
+                    'name': name,
+                    'year': year,
+                    'month': month,
+                    'day': day,
+                    'mbti': mbti,
+                    'introduce': introduce,
+                    'pors': pors,
+                    'collabo': collabo,
+                    'blog': blog
+                };
+                await addDoc(collection(db, "self_intro"), doc);
+                alert('저장 완료');
+                window.location.reload();
+                console.log("저장완료")
+            })
         });
 
         // 사용자가 모달 외부를 클릭하면 모달을 숨김
@@ -174,7 +209,7 @@
         }
         $("#closeModal, #closeModalBtn").on('click', closeModal);
 
-
+        // 모달 내용 초기화
         function resetForm() {
             document.getElementById("image").value = "";
             document.getElementById("name").value = "";
@@ -183,7 +218,7 @@
             document.getElementById("day").value = "";
             document.getElementById("mbti").value = "";
             document.getElementById("introduce").value = "";
-            document.getElementById("pros").value = "";
+            document.getElementById("pors").value = "";
             document.getElementById("collabo").value = "";
             document.getElementById("blog").value = "";
 
@@ -208,7 +243,7 @@
             let day = yearMonthDay[2].trim();
             let mbti = card.find('.card-text:nth(1)').text().split(':')[1].trim();
             let introduce = card.find('.card-text:nth(2)').text().split(':')[1].trim();
-            let pros = card.find('.card-text:nth(3)').text().split(':')[1].trim();
+            let pors = card.find('.card-text:nth(3)').text().split(':')[1].trim();
             let collabo = card.find('.card-text:nth(4)').text().split(':')[1].trim();
             let blog = card.find('.card-text:nth(5)').text().split(':')[1].trim();
 
@@ -219,7 +254,7 @@
             $('#day').val(day);
             $('#mbti').val(mbti);
             $('#introduce').val(introduce);
-            $('#pros').val(pros);
+            $('#pors').val(pors);
             $('#collabo').val(collabo);
             $('#blog').val(blog);
 
@@ -227,105 +262,51 @@
             $(".modal input").prop("disabled", true);
             $(".modal select").prop("disabled", true);
 
-            // "수정" 버튼 클릭 시 실행되는 로직
             $('#savebtn').text('수정').off('click').on('click', async function () {
                 $(".modal input").prop("disabled", false);
                 $(".modal select").prop("disabled", false);
-
-                // ... 기존 정보를 수정하는 로직 추가 ...
-
-                $('#savebtn').text('등록');  // 수정 완료 후 버튼 텍스트 변경
-
+                
             });
         });
 
-        // Firebase SDK 라이브러리 가져오기
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        // Firebase 구성 정보 설정
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyDejbvZUV3PTmzetChXb67VlznbLVh71Sc",
-            authDomain: "sparta-971d8.firebaseapp.com",
-            projectId: "sparta-971d8",
-            storageBucket: "sparta-971d8.appspot.com",
-            messagingSenderId: "495633994677",
-            appId: "1:495633994677:web:e6b97de67c586b4f6bfffc",
-            measurementId: "G-TS5RNHZ8DM"
-        };
-        // Firebase 인스턴스 초기화
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        $("#savebtn").click(async function () {
-            let name = $('#name').val();
-            let image = $('#image').val();
-            let year = $('#year').val();
-            let month = $('#month').val();
-            let day = $('#day').val();
-            let mbti = $('#mbti').val();
-            let introduce = $('#introduce').val();
-            let pros = $('#pros').val();
-            let collabo = $('#collabo').val();
-            let blog = $('#blog').val();
-
-            let doc = {
-                'image': image,
-                'year': year,
-                'month': month,
-                'day': day,
-                'mbti': mbti,
-                'introduce': introduce,
-                'pros': pros,
-                'collabo': collabo,
-                'blog': blog
+            // Firebase SDK 라이브러리 가져오기
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+            import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+            import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+            import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+            // Firebase 구성 정보 설정
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+                apiKey: "AIzaSyDejbvZUV3PTmzetChXb67VlznbLVh71Sc",
+                authDomain: "sparta-971d8.firebaseapp.com",
+                projectId: "sparta-971d8",
+                storageBucket: "sparta-971d8.appspot.com",
+                messagingSenderId: "495633994677",
+                appId: "1:495633994677:web:e6b97de67c586b4f6bfffc",
+                measurementId: "G-TS5RNHZ8DM"
             };
+            // Firebase 인스턴스 초기화
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
 
-            // 주어진 이름의 문서가 이미 존재하는지 확인
-            const documentExists = await doesDocumentExist(name);
+            // get메소드로 파이어베이스에 저장된 데이터 가져오기
+            let docs = await getDocs(collection(db, "self_intro"));
+            docs.forEach((doc) => {
+                let row = doc.data();
+                let image = row['image'];
+                let name = row['name'];
+                let year = row['year'];
+                let month = row['month'];
+                let day = row['day'];
+                let mbti = row['mbti'];
+                let introduce = row['introduce'];
+                let pors = row['pors'];
+                let collabo = row['collabo'];
+                let blog = row['blog'];
+                console.log(month);
 
-            if (documentExists) {
-                // 기존 문서를 업데이트
-                await updateDocument(name, doc);
-                alert('수정 완료');
-            } else {
-                // 새로운 문서를 추가
-                await addDoc(collection(db, "self_intro"), { 'name': name, ...doc });
-                alert('저장 완료');
-            }
-
-            window.location.reload();
-
-            // "상세 보기" 버튼을 클릭할 때의 이벤트 핸들러
-            link.click(function () {
-                resetForm();
-                modal.css("display", "block");
-                centerModal();
-                $('#savebtn').text('등록');
-            });
-
-        });
-
-        // get메소드로 파이어베이스에 저장된 데이터 가져오기
-        let docs = await getDocs(collection(db, "self_intro"));
-        docs.forEach((doc) => {
-            let row = doc.data();
-            let image = row['image'];
-            let name = row['name'];
-            let year = row['year'];
-            let month = row['month'];
-            let day = row['day'];
-            let mbti = row['mbti'];
-            let introduce = row['introduce'];
-            let pros = row['pros'];
-            let collabo = row['collabo'];
-            let blog = row['blog'];
-            console.log(month);
-
-            let imageUrl = isValidUrl(image) ? image : 'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/7r5X/image/9djEiPBPMLu_IvCYyvRPwmZkM1g.jpg'
-            let temp_html = `
+                let imageUrl = isValidUrl(image) ? image : 'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/7r5X/image/9djEiPBPMLu_IvCYyvRPwmZkM1g.jpg'
+                let temp_html = `
                 <div class="col">
                         <div class="card h-100" data-image = "${imageUrl}">
                             <img src="${imageUrl}"
@@ -335,66 +316,22 @@
                                 <p class="card-text">생년월일:${year}/ ${month} / ${day}</p>
                                 <p class="card-text">mbti:${mbti}</p>
                                 <p class="card-text">자기소개:${introduce}</p>
-                                <p class="card-text">나의 장점:${pros}</p>
+                                <p class="card-text">나의 장점:${pors}</p>
                                 <p class="card-text">협업 스타일 소개:${collabo}</p>
                                 <p class="card-text">블로그 주소:${blog}</p>
                             </div>
                         </div>
                     </div>`;
-            $('#update_card').prepend(temp_html);
-        });
-        function isValidUrl(str) {
-            try {
-                new URL(str);
-                return true;
-            } catch (error) {
-                return false;
-            }
-        }
-
-        // 주어진 이름의 문서가 이미 데이터베이스에 있는지 확인하는 함수
-        async function doesDocumentExist(name) {
-            const querySnapshot = await getDocs(collection(db, "self_intro"));
-            return querySnapshot.docs.some((doc) => doc.data().name === name);
-        }
-
-        // 데이터베이스의 기존 문서를 업데이트하는 함수
-        async function updateDocument(name, updatedData) {
-            const querySnapshot = await getDocs(collection(db, "self_intro"));
-            querySnapshot.forEach(async (doc) => {
-                if (doc.data().name === name) {
-                    await setDoc(doc.ref, updatedData, { merge: true });
-                }
+                $('#update_card').prepend(temp_html);
             });
-        }
-
-        // "등록" 버튼에 대한 이벤트 리스너
-        $("#savebtn").click(async function () {
-            let name = $('#name').val();
-            let image = $('#image').val();
-            let year = $('#year').val();
-            let month = $('#month').val();
-            let day = $('#day').val();
-            let mbti = $('#mbti').val();
-            let introduce = $('#introduce').val();
-            let pros = $('#pros').val();
-            let collabo = $('#collabo').val();
-            let blog = $('#blog').val();
-
-            let doc = {
-                'image': image,
-                'year': year,
-                'month': month,
-                'day': day,
-                'mbti': mbti,
-                'introduce': introduce,
-                'pros': pros,
-                'collabo': collabo,
-                'blog': blog
-            };
-
-            
-
+            function isValidUrl(str) {
+                try {
+                    new URL(str);
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+            }
     </script>
 </head>
 
@@ -497,9 +434,9 @@
             </div>
             <!-- 나의 장점 -->
             <div class="mb-3 form-item">
-                <label for="pros" class="form-label">나의 장점</label>
-                <input type="text" id="pros" class="form-control" aria-describedby="prosHelp">
-                <div id="prosHelp" class="form-text">당신의 장점을 알려주세요.</div>
+                <label for="pors" class="form-label">나의 장점</label>
+                <input type="text" id="pors" class="form-control" aria-describedby="porsHelp">
+                <div id="porsHelp" class="form-text">당신의 장점을 알려주세요.</div>
             </div>
             <!-- 협업 스타일 소개 -->
             <div class="mb-3 form-item">
