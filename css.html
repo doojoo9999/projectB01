@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비공일</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- 폰트 링크 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
+
+        * {
+            font-family: 'Nanum Gothic', sans-serif;
+            font-size: 14px;
+            outline: none;
+        }
+
+        /* 제일 굵은 글씨 굵기 - 비공일 헤더 */
+        h1 {
+            font-weight: 700;
+        }
+
+        /* 중간 굵기 - 팀소개 */
+        h3 {
+            font-weight: 500;
+        }
+
+        /* 제일 작은 굵기 - 팀 소개 내용 */
+        p {
+            font-weight: 400;
+        }
+
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1000px;
+            margin: 20px auto;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .image-container {
+            width: 500px;
+            height: 400px;
+            background-color: green;
+        }
+
+        .text-container {
+            width: 50%;
+            height: auto;
+            box-sizing: border-box;
+            margin-left: 10px;
+        }
+
+        .content-save {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mycards {
+            width: 900px;
+            height: 300px;
+
+            margin: 30px auto 0px auto;
+        }
+
+        .card-img-top {
+            height: 250px;
+        }
+
+        .popup .form-item {
+            margin-bottom: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .popup .form-item input,
+        .popup .form-item select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .popup .form-item .input-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .popup .form-item .input-group input {
+            flex: 1;
+        }
+
+        /* 모달의 기본 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* 모달 내용의 스타일 */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            border-radius: 15px;
+        }
+
+        
+        /* 팀 소개 css */
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            /* Set background color */
+            border: 1px solid #ddd;
+            /* Add a border */
+            border-radius: 10px;
+            /* Add border-radius for rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* Add a subtle box shadow */
+        }
+
+        .image-container {
+            width: 50%;
+            max-width: 500px;
+            /* Limit maximum width for responsiveness */
+            height: auto;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            /* Add border-radius for rounded corners */
+            overflow: hidden;
+            /* Hide overflowing content */
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .text-container {
+            width: 50%;
+            max-width: 500px;
+            /* Limit maximum width for responsiveness */
+            box-sizing: border-box;
+            margin-left: 20px;
+        }
+
+        h3 {
+            font-weight: 500;
+            color: #333;
+            /* Set text color */
+            margin-bottom: 10px;
+            /* Add spacing below the heading */
+        }
+
+        p {
+            font-weight: 400;
+            color: #666;
+            /* Set text color */
+            margin-bottom: 10px;
+            /* Add spacing below paragraphs */
+        }
+
+        /* 등록하기 버튼 css */
+        .content-save {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        #myLink {
+            background-color: #007bff;
+            /* Set button background color */
+            color: #fff;
+            /* Set button text color */
+            border: none;
+            /* Remove border */
+            padding: 10px 20px;
+            /* Add padding for a comfortable button size */
+            font-size: 16px;
+            /* Increase font size */
+            cursor: pointer;
+            border-radius: 5px;
+            /* Add border-radius for rounded corners */
+            transition: background-color 0.3s ease;
+            /* Smooth transition for background color */
+        }
+
+        #myLink:hover {
+            background-color: #0056b3;
+            /* Darker background color on hover */
+        }
+
+        /* 모달 내부 등록 버튼 css */
+        #savebtn {
+            background-color: #28a745;
+            /* Set button background color */
+            color: #fff;
+            /* Set button text color */
+            border: none;
+            /* Remove border */
+            padding: 10px 20px;
+            /* Add padding for a comfortable button size */
+            font-size: 16px;
+            /* Increase font size */
+            cursor: pointer;
+            border-radius: 5px;
+            /* Add border-radius for rounded corners */
+            transition: background-color 0.3s ease;
+            /* Smooth transition for background color */
+        }
+
+        #savebtn:hover {
+            background-color: #218838;
+            /* Darker background color on hover */
+        }
+
+    </style>
+    <script type="module">
+        // 상세 보기 링크
+        var link = $("#myLink");
+
+
+        // 모달
+        var modal = $("#myModal");
+
+        // 상세 보기 링크를 클릭하면 모달을 표시
+        link.click(function () {
+            resetForm();
+            modal.css("display", "block");
+            centerModal();
+        });
+
+        // 사용자가 모달 외부를 클릭하면 모달을 숨김
+        $(window).click(function (event) {
+            if (event.target === modal[0]) {
+                modal.css("display", "none");
+            }
+        });
+
+        // 함수를 통해 모달을 가운데로 정렬
+        function centerModal() {
+            var modalContent = $(".modal-content");
+            var windowHeight = $(window).height();
+            var modalHeight = modalContent.outerHeight();
+
+            // 모달 높이가 창 높이보다 작은 경우 상단 여백을 조정
+            if (modalHeight < windowHeight) {
+                modalContent.css("margin-top", (windowHeight - modalHeight) / 2);
+            } else {
+                // 모달 높이가 창 높이보다 큰 경우는 상단 여백을 5px로 고정
+                modalContent.css("margin-top", "5px");
+            }
+
+            modalContent.css("position", "fixed");
+            modalContent.css("top", "50%");
+            modalContent.css("left", "50%");
+            modalContent.css("transform", "translate(-50%, -50%)");
+        }
+
+        // 창 크기가 변경될 때도 모달을 가운데로 정렬
+        $(window).resize(function () {
+            centerModal();
+        });
+
+        // 창이 스크롤될 때도 모달을 가운데로 정렬
+        $(window).scroll(function () {
+            centerModal();
+        });
+
+        function closeModal() {
+            modal.css("display", "none");
+        }
+        var closeButton = $("#closeModal");
+        if (closeButton) {
+            closeButton.on('click', closeModal);
+        }
+
+        function resetForm() {
+            document.getElementById("image").value = "";
+            document.getElementById("name").value = "";
+            document.getElementById("year").value = "";
+            document.getElementById("month").value = "";
+            document.getElementById("day").value = "";
+            document.getElementById("mbti").value = "";
+            document.getElementById("introduce").value = "";
+            document.getElementById("pors").value = "";
+            document.getElementById("collabo").value = "";
+            document.getElementById("blog").value = "";
+
+            $(".modal input").prop("disabled", false);
+            $(".modal select").prop("disabled", false);
+        }
+
+        // 사용자가 모달 외부를 클릭하면 모달을 숨김
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        $('#update_card').on('click', '.card', function () {
+            // Extract data from the clicked card
+            let card = $(this);
+            let imageUrl = card.data('image');
+            let name = card.find('.card-title').text();
+            let yearMonthDay = card.find('.card-text:nth(0)').text().split('/');
+            let year = yearMonthDay[0].trim().split(':')[1];
+            let month = yearMonthDay[1].trim();
+            let day = yearMonthDay[2].trim();
+            let mbti = card.find('.card-text:nth(1)').text().split(':')[1].trim();
+            let introduce = card.find('.card-text:nth(2)').text().split(':')[1].trim();
+            let pors = card.find('.card-text:nth(3)').text().split(':')[1].trim();
+            let collabo = card.find('.card-text:nth(4)').text().split(':')[1].trim();
+            let blog = card.find('.card-text:nth(5)').text().split(':')[1].trim();
+
+            // Populate the popup content with extracted data
+            $('#image').val(imageUrl); // You may want to add a field for the image
+            $('#name').val(name);
+            $('#year').val(year);
+            $('#month').val(month);
+            $('#day').val(day);
+            $('#mbti').val(mbti);
+            $('#introduce').val(introduce);
+            $('#pors').val(pors);
+            $('#collabo').val(collabo);
+            $('#blog').val(blog);
+
+            // Show the popup
+            modal.show();
+            $(".modal input").prop("disabled", true);
+            $(".modal select").prop("disabled", true);
+        });
+
+        // Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        // Firebase 구성 정보 설정
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyDejbvZUV3PTmzetChXb67VlznbLVh71Sc",
+            authDomain: "sparta-971d8.firebaseapp.com",
+            projectId: "sparta-971d8",
+            storageBucket: "sparta-971d8.appspot.com",
+            messagingSenderId: "495633994677",
+            appId: "1:495633994677:web:e6b97de67c586b4f6bfffc",
+            measurementId: "G-TS5RNHZ8DM"
+        };
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        $("#savebtn").click(async function () {
+            let image = $('#image').val();
+            let name = $('#name').val();
+            let year = $('#year').val();
+            console.log(year)
+            // let month = $('#month').val();
+            var m = document.getElementById("month");
+            var month = m.value;
+            let day = $('#day').val();
+            let mbti = $('#mbti').val();
+            let introduce = $('#introduce').val();
+            let pors = $('#pors').val();
+            let collabo = $('#collabo').val();
+            let blog = $('#blog').val();
+
+            let doc = {
+                'image': image,
+                'name': name,
+                'year': year,
+                'month': month,
+                'day': day,
+                'mbti': mbti,
+                'introduce': introduce,
+                'pors': pors,
+                'collabo': collabo,
+                'blog': blog
+            };
+            await addDoc(collection(db, "self_intro"), doc);
+            alert('저장 완료');
+            window.location.reload();
+            console.log("저장완료")
+        })
+
+        // get메소드로 파이어베이스에 저장된 데이터 가져오기
+        let docs = await getDocs(collection(db, "self_intro"));
+        docs.forEach((doc) => {
+            let row = doc.data();
+            let image = row['image'];
+            let name = row['name'];
+            let year = row['year'];
+            let month = row['month'];
+            let day = row['day'];
+            let mbti = row['mbti'];
+            let introduce = row['introduce'];
+            let pors = row['pors'];
+            let collabo = row['collabo'];
+            let blog = row['blog'];
+            let imageUrl = isValidUrl(image) ? image : 'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/7r5X/image/9djEiPBPMLu_IvCYyvRPwmZkM1g.jpg'
+            let temp_html = `
+                <div class="col">
+                        <div class="card h-100" data-image = "${imageUrl}">
+                            <img src="${imageUrl}"
+                                class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h6 class="card-title">${name}</h6>
+                                <p class="card-text">생년월일:${year}/ ${month} / ${day}</p>
+                                <p class="card-text">mbti:${mbti}</p>
+                                <p class="card-text">자기소개:${introduce}</p>
+                                <p class="card-text">나의 장점:${pors}</p>
+                                <p class="card-text">협업 스타일 소개:${collabo}</p>
+                                <p class="card-text">블로그 주소:${blog}</p>
+                            </div>
+                        </div>
+                    </div>`;
+            $('#update_card').prepend(temp_html);
+        });
+        function isValidUrl(str) {
+            try {
+                new URL(str);
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>비공일</h1>
+    </header>
+
+    <div class="content-container">
+        <div class="image-container">
+            <img src="" alt="이미지">
+        </div>
+        <div class="text-container">
+            <h3>팀 소개</h3>
+            <p>팀이름 : 비공일</p>
+            <p>팀특징 : 열정!열정!!열정!!!</p>
+            <p>팀목표 : 프로젝트 마지막까지 서로 끌어주고 밀어주고 잘 굴러가는 팀이 되자.</p>
+            <p>우리 팀의 약속</p>
+            <p>지각, 무단이탈 등 중도 하차/포기 금지</p>
+            <p>좋은 건 다같이.. 모르는 것도 다 같이..</p>
+            <p>아.., 후…, 씁…?, 하… 금지</p>
+            <p>일단 해 보기</p>
+            <p>일정 생기면 사전에 팀원에게 알리기</p>
+        </div>
+    </div>
+    <!-- 상세 보기 링크 -->
+    <div class="content-save">
+        <button type="button" id="myLink" class="btn btn-primary">등록하기</button>
+    </div>
+    <div class="mycards">
+        <div id="update_card" class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <!-- <div class="card h-100">
+                    <img src="https://images.unsplash.com/photo-1446768500601-ac47e5ec3719?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80"
+                        class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">이름</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 모달 -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="popup">
+                <button type="button" class="btn-close position-absolute top-0 end-0 p-2" aria-label="Close"
+                    id="closeModal" onclick="closeModal()"></button>
+                <!-- 사진 -->
+                <div class="mb-3 form-item">
+                    <label for="image" class="form-label">사진</label>
+                    <input type="text" id="image" class="form-control" aria-describedby="imageHelp">
+                    <div id="imageHelp" class="form-text">사진 URL을 입력하세요.</div>
+                </div>
+                <!-- 이름 -->
+                <div class="mb-3 form-item">
+                    <label for="name" class="form-label">이름</label>
+                    <input type="text" id="name" class="form-control" aria-describedby="nameHelp">
+                    <div id="nameHelp" class="form-text">이름을 입력하세요.</div>
+                </div>
+            </div>
+            <!-- 생년월일 -->
+            <div class="mb-3 form-item">
+                <label for="birthdate" class="form-label">생년월일</label>
+                <div class="input-group">
+                    <input type="number" id="year" placeholder="년(4자)" class="form-control">
+                    <select id="month" class="form-select">
+                        <option value="">월</option>
+                        <option value="1">1월</option>
+                        <option value="2">2월</option>
+                        <option value="3">3월</option>
+                        <option value="4">4월</option>
+                        <option value="5">5월</option>
+                        <option value="6">6월</option>
+                        <option value="7">7월</option>
+                        <option value="8">8월</option>
+                        <option value="9">9월</option>
+                        <option value="10">10월</option>
+                        <option value="11">11월</option>
+                        <option value="12">12월</option>
+                    </select>
+                    <input type="number" id="day" placeholder="일" class="form-control">
+                </div>
+            </div>
+            <!-- MBTI -->
+            <div class="mb-3 form-item">
+                <label for="mbti" class="form-label">MBTI</label>
+                <input type="text" id="mbti" class="form-control" aria-describedby="mbtiHelp">
+                <div id="mbtiHelp" class="form-text">MBTI 유형을 입력하세요.</div>
+            </div>
+            <!-- 자기소개 -->
+            <div class="mb-3 form-item">
+                <label for="introduce" class="form-label">자기소개</label>
+                <input type="text" id="introduce" class="form-control" aria-describedby="introduceHelp">
+                <div id="introduceHelp" class="form-text">자신을 소개해 주세요.</div>
+            </div>
+            <!-- 나의 장점 -->
+            <div class="mb-3 form-item">
+                <label for="pors" class="form-label">나의 장점</label>
+                <input type="text" id="pors" class="form-control" aria-describedby="porsHelp">
+                <div id="porsHelp" class="form-text">당신의 장점을 알려주세요.</div>
+            </div>
+            <!-- 협업 스타일 소개 -->
+            <div class="mb-3 form-item">
+                <label for="collabo" class="form-label">협업 스타일 소개</label>
+                <input type="text" id="collabo" class="form-control" aria-describedby="collaboHelp">
+                <div id="collaboHelp" class="form-text">당신의 협업 스타일은 어떤가요?</div>
+            </div>
+            <!-- 블로그 주소 -->
+            <div class="mb-3 form-item">
+                <label for="blog" class="form-label">블로그 주소</label>
+                <input type="text" id="blog" class="form-control" aria-describedby="blogHelp">
+                <div id="blogHelp" class="form-text">블로그 주소를 써 주세요.</div>
+            </div>
+
+            <button id="savebtn" type="button">등록</button>
+            </p>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+</html>
