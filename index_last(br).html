@@ -133,6 +133,9 @@
             // 항상 등록 버튼이게 바꿈
             $('#savebtn').text('등록');
 
+            // 모달이 열려있을 때만 삭제 버튼을 가림
+            $('#deleteBtn').hide();
+
             // 등록 버튼을 눌러 저장
             $("#savebtn").click(async function () {
                 let image = $('#image').val();
@@ -166,6 +169,8 @@
                 console.log("저장완료")
             })
         });
+
+
 
         // 사용자가 모달 외부를 클릭하면 모달을 숨김
         $(window).click(function (event) {
@@ -233,6 +238,24 @@
             }
         }
 
+        // 삭제 버튼 클릭 시 Firebase에서 문서 삭제
+        $('#deleteBtn').on('click', async function () {
+            let name = $('#name').val();
+
+            // 문서를 삭제할 때는 해당 문서의 고유 ID가 필요합니다.
+            // 여기에서는 이름을 기준으로 해당 문서를 찾아 삭제합니다.
+            const querySnapshot = await getDocs(collection(db, "self_intro"));
+            querySnapshot.forEach(async (doc) => {
+                const data = doc.data();
+                if (data.name === name) {
+                    // 해당 문서의 ID를 이용하여 삭제
+                    await deleteDoc(doc.ref);
+                    alert('삭제 완료');
+                    window.location.reload();
+                }
+            });
+        });
+
         $('#update_card').on('click', '.card', function () {
             let card = $(this);
             let imageUrl = card.data('image');
@@ -262,51 +285,52 @@
             $(".modal input").prop("disabled", true);
             $(".modal select").prop("disabled", true);
 
+            $('#deleteBtn').show();
+
             $('#savebtn').text('수정').off('click').on('click', async function () {
                 $(".modal input").prop("disabled", false);
                 $(".modal select").prop("disabled", false);
-                
+
             });
         });
 
-            // Firebase SDK 라이브러리 가져오기
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-            import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-            import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-            import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-            // Firebase 구성 정보 설정
-            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-            const firebaseConfig = {
-                apiKey: "AIzaSyDejbvZUV3PTmzetChXb67VlznbLVh71Sc",
-                authDomain: "sparta-971d8.firebaseapp.com",
-                projectId: "sparta-971d8",
-                storageBucket: "sparta-971d8.appspot.com",
-                messagingSenderId: "495633994677",
-                appId: "1:495633994677:web:e6b97de67c586b4f6bfffc",
-                measurementId: "G-TS5RNHZ8DM"
-            };
-            // Firebase 인스턴스 초기화
-            const app = initializeApp(firebaseConfig);
-            const db = getFirestore(app);
+        // Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-            // get메소드로 파이어베이스에 저장된 데이터 가져오기
-            let docs = await getDocs(collection(db, "self_intro"));
-            docs.forEach((doc) => {
-                let row = doc.data();
-                let image = row['image'];
-                let name = row['name'];
-                let year = row['year'];
-                let month = row['month'];
-                let day = row['day'];
-                let mbti = row['mbti'];
-                let introduce = row['introduce'];
-                let pors = row['pors'];
-                let collabo = row['collabo'];
-                let blog = row['blog'];
-                console.log(month);
+        // Firebase 구성 정보 설정
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyDejbvZUV3PTmzetChXb67VlznbLVh71Sc",
+            authDomain: "sparta-971d8.firebaseapp.com",
+            projectId: "sparta-971d8",
+            storageBucket: "sparta-971d8.appspot.com",
+            messagingSenderId: "495633994677",
+            appId: "1:495633994677:web:e6b97de67c586b4f6bfffc",
+            measurementId: "G-TS5RNHZ8DM"
+        };
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-                let imageUrl = isValidUrl(image) ? image : 'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/7r5X/image/9djEiPBPMLu_IvCYyvRPwmZkM1g.jpg'
-                let temp_html = `
+        // get메소드로 파이어베이스에 저장된 데이터 가져오기
+        let docs = await getDocs(collection(db, "self_intro"));
+        docs.forEach((doc) => {
+            let row = doc.data();
+            let image = row['image'];
+            let name = row['name'];
+            let year = row['year'];
+            let month = row['month'];
+            let day = row['day'];
+            let mbti = row['mbti'];
+            let introduce = row['introduce'];
+            let pors = row['pors'];
+            let collabo = row['collabo'];
+            let blog = row['blog'];
+            console.log(month);
+
+            let imageUrl = isValidUrl(image) ? image : 'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/7r5X/image/9djEiPBPMLu_IvCYyvRPwmZkM1g.jpg'
+            let temp_html = `
                 <div class="col">
                         <div class="card h-100" data-image = "${imageUrl}">
                             <img src="${imageUrl}"
@@ -322,16 +346,17 @@
                             </div>
                         </div>
                     </div>`;
-                $('#update_card').prepend(temp_html);
-            });
-            function isValidUrl(str) {
-                try {
-                    new URL(str);
-                    return true;
-                } catch (error) {
-                    return false;
-                }
+            $('#update_card').prepend(temp_html);
+        });
+
+        function isValidUrl(str) {
+            try {
+                new URL(str);
+                return true;
+            } catch (error) {
+                return false;
             }
+        }
     </script>
 </head>
 
@@ -451,8 +476,8 @@
                 <div id="blogHelp" class="form-text">블로그 주소를 써 주세요.</div>
             </div>
             <button id="savebtn" type="button" btn-primary>등록</button>
+            <button id="deleteBtn" type="button" class="btn btn-danger">삭제</button>
             <button id="closeModalBtn" type="button" btn-secondary>닫기</button>
-            <!-- <button id="deleteBtn" type="button" class="btn btn-danger">삭제</button> -->
             </p>
         </div>
     </div>
