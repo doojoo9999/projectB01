@@ -175,7 +175,7 @@
         if (closeButton) {
             closeButton.on('click', closeModal);
         }
-
+        
         function resetForm() {
             document.getElementById("image").value = "";
             document.getElementById("name").value = "";
@@ -205,7 +205,7 @@
             let imageUrl = card.data('image');
             let name = card.find('.card-title').text();
             let yearMonthDay = card.find('.card-text:nth(0)').text().split('/');
-            let year = yearMonthDay[0].trim();
+            let year = yearMonthDay[0].trim().split(':')[1];
             let month = yearMonthDay[1].trim();
             let day = yearMonthDay[2].trim();
             let mbti = card.find('.card-text:nth(1)').text().split(':')[1].trim();
@@ -256,6 +256,7 @@
             let image = $('#image').val();
             let name = $('#name').val();
             let year = $('#year').val();
+            console.log(year)
             // let month = $('#month').val();
             var m = document.getElementById("month");
             var month = m.value;
@@ -298,8 +299,6 @@
             let pors = row['pors'];
             let collabo = row['collabo'];
             let blog = row['blog'];
-            console.log(month);
-
             let imageUrl = isValidUrl(image) ? image : 'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/7r5X/image/9djEiPBPMLu_IvCYyvRPwmZkM1g.jpg'
             let temp_html = `
                 <div class="col">
@@ -355,7 +354,7 @@
     </div>
     <!-- 상세 보기 링크 -->
     <div class="content-save">
-        <button type="button" id="myLink" class="btn btn-primary btn-lg">일꾼 등록</button>
+        <button type="button" id="myLink" class="btn btn-primary btn-lg">등록하기</button>
     </div>
     <div class="mycards">
         <div id="update_card" class="row row-cols-1 row-cols-md-3 g-4">
