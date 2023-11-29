@@ -182,7 +182,7 @@
             document.getElementById("day").value = "";
             document.getElementById("mbti").value = "";
             document.getElementById("introduce").value = "";
-            document.getElementById("pors").value = "";
+            document.getElementById("pros").value = "";
             document.getElementById("collabo").value = "";
             document.getElementById("blog").value = "";
         }
@@ -206,7 +206,7 @@
             let day = yearMonthDay[2].trim();
             let mbti = card.find('.card-text:nth(1)').text().split(':')[1].trim();
             let introduce = card.find('.card-text:nth(2)').text().split(':')[1].trim();
-            let pors = card.find('.card-text:nth(3)').text().split(':')[1].trim();
+            let pros = card.find('.card-text:nth(3)').text().split(':')[1].trim();
             let collabo = card.find('.card-text:nth(4)').text().split(':')[1].trim();
             let blog = card.find('.card-text:nth(5)').text().split(':')[1].trim();
 
@@ -218,7 +218,7 @@
             $('#day').val(day);
             $('#mbti').val(mbti);
             $('#introduce').val(introduce);
-            $('#pors').val(pors);
+            $('#pros').val(pros);
             $('#collabo').val(collabo);
             $('#blog').val(blog);
 
@@ -256,7 +256,7 @@
             let day = $('#day').val();
             let mbti = $('#mbti').val();
             let introduce = $('#introduce').val();
-            let pors = $('#pors').val();
+            let pros = $('#pros').val();
             let collabo = $('#collabo').val();
             let blog = $('#blog').val();
 
@@ -268,7 +268,7 @@
                 'day': day,
                 'mbti': mbti,
                 'introduce': introduce,
-                'pors': pors,
+                'pros': pros,
                 'collabo': collabo,
                 'blog': blog
             };
@@ -289,7 +289,7 @@
             let day = row['day'];
             let mbti = row['mbti'];
             let introduce = row['introduce'];
-            let pors = row['pors'];
+            let pros = row['pros'];
             let collabo = row['collabo'];
             let blog = row['blog'];
             console.log(month);
@@ -305,7 +305,7 @@
                                 <p class="card-text">생년월일:${year}/ ${month} / ${day}</p>
                                 <p class="card-text">mbti:${mbti}</p>
                                 <p class="card-text">자기소개:${introduce}</p>
-                                <p class="card-text">나의 장점:${pors}</p>
+                                <p class="card-text">나의 장점:${pros}</p>
                                 <p class="card-text">협업 스타일 소개:${collabo}</p>
                                 <p class="card-text">블로그 주소:${blog}</p>
                             </div>
@@ -367,7 +367,7 @@
 
     </div>
 
-    <!-- 모달 -->
+   <!-- 모달 -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <div class="popup">
@@ -423,9 +423,9 @@
             </div>
             <!-- 나의 장점 -->
             <div class="mb-3 form-item">
-                <label for="pors" class="form-label">나의 장점</label>
-                <input type="text" id="pors" class="form-control" aria-describedby="porsHelp">
-                <div id="porsHelp" class="form-text">당신의 장점을 알려주세요.</div>
+                <label for="pros" class="form-label">나의 장점</label>
+                <input type="text" id="pros" class="form-control" aria-describedby="prosHelp">
+                <div id="prosHelp" class="form-text">당신의 장점을 알려주세요.</div>
             </div>
             <!-- 협업 스타일 소개 -->
             <div class="mb-3 form-item">
@@ -439,15 +439,14 @@
                 <input type="text" id="blog" class="form-control" aria-describedby="blogHelp">
                 <div id="blogHelp" class="form-text">블로그 주소를 써 주세요.</div>
             </div>
-
-            <button id="savebtn" type="button">등록하기</button>
-            
+        
+            <button id="savebtn" type="button">등록</button>
             </p>
         </div>
+        </div>
     </div>
-    </div>
-    </div>
-    </div>
+            </div>
+        </div>
 </body>
 
 </html>
