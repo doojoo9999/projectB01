@@ -276,11 +276,10 @@
             $('#deleteBtn').hide();
 
             // 등록 버튼을 눌러 저장
-            $("#savebtn").click(async function () {
+            $("#savebtn").off('click').on('click', async function () {
                 let image = $('#image').val();
                 let name = $('#name').val();
                 let year = $('#year').val();
-                // let month = $('#month').val();
                 var m = document.getElementById("month");
                 var month = m.value;
                 let day = $('#day').val();
@@ -306,7 +305,7 @@
                 alert('저장 완료');
                 window.location.reload();
                 console.log("저장완료")
-            })
+            });
         });
 
         // 사용자가 모달 외부를 클릭하면 모달을 숨김
@@ -611,20 +610,20 @@
     <!-- 모달 -->
     <div id="myModal" class="modal">
         <div class="modal-content">
-                <button type="button" class="btn-close position-absolute top-0 end-0 p-2" aria-label="Close"
-                    id="closeModal" onclick="closeModal()"></button>
-                <!-- 사진 -->
-                <div class="mb-3 form-item">
-                    <label for="image" class="form-label">사진</label>
-                    <input type="text" id="image" class="form-control" aria-describedby="imageHelp">
-                    <div id="imageHelp" class="form-text">사진 URL을 입력하세요.</div>
-                </div>
-                <!-- 이름 -->
-                <div class="mb-3 form-item">
-                    <label for="name" class="form-label">이름</label>
-                    <input type="text" id="name" class="form-control" aria-describedby="nameHelp">
-                    <div id="nameHelp" class="form-text">이름을 입력하세요.</div>
-                </div>
+            <button type="button" class="btn-close position-absolute top-0 end-0 p-2" aria-label="Close" id="closeModal"
+                onclick="closeModal()"></button>
+            <!-- 사진 -->
+            <div class="mb-3 form-item">
+                <label for="image" class="form-label">사진</label>
+                <input type="text" id="image" class="form-control" aria-describedby="imageHelp">
+                <div id="imageHelp" class="form-text">사진 URL을 입력하세요.</div>
+            </div>
+            <!-- 이름 -->
+            <div class="mb-3 form-item">
+                <label for="name" class="form-label">이름</label>
+                <input type="text" id="name" class="form-control" aria-describedby="nameHelp">
+                <div id="nameHelp" class="form-text">이름을 입력하세요.</div>
+            </div>
             <!-- 생년월일 -->
             <div class="mb-3 form-item">
                 <label for="birthdate" class="form-label">생년월일</label>
