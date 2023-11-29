@@ -70,25 +70,26 @@
             height: 250px;
         }
 
-        .popup .form-item {
-            margin-bottom: 8px;
+        .form-item .form-label {
+            margin-top: -10px;
+            margin-bottom: -1px;
             display: flex;
             flex-direction: column;
         }
 
-        .popup .form-item input,
-        .popup .form-item select {
+        .form-item input,
+        .form-item select {
             width: 100%;
-            padding: 10px;
+            padding: 5px;
             box-sizing: border-box;
         }
 
-        .popup .form-item .input-group {
+        .form-item .input-group {
             display: flex;
-            gap: 5px;
+            gap: 1px;
         }
 
-        .popup .form-item .input-group input {
+        .form-item .input-group input {
             flex: 1;
         }
 
@@ -101,6 +102,7 @@
             top: 50%;
             transform: translate(-50%, -50%);
             width: 100%;
+            height: 100%;
             max-height: 100%;
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.4);
@@ -109,8 +111,9 @@
         /* 모달 내용의 스타일 */
         .modal-content {
             background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
+            /* margin: 15% auto; */
+            /*기존에 있던 MARGIN 제거 */
+            padding: 13px;
             border: 1px solid #888;
             width: 50%;
             border-radius: 15px;
@@ -144,10 +147,10 @@
 
             // 모달 높이가 창 높이보다 작은 경우 상단 여백을 조정
             if (modalHeight < windowHeight) {
-                modalContent.css("margin-top", (windowHeight - modalHeight) / 2);
+                modalContent.css("margin-top", "5%"); // 5%로 수정
             } else {
-                // 모달 높이가 창 높이보다 큰 경우는 상단 여백을 5px로 고정
-                modalContent.css("margin-top", "5px");
+                // 모달 높이가 창 높이보다 큰 경우는 상단 여백을 5%로 고정
+                modalContent.css("margin-top", "5%");
             }
 
             modalContent.css("position", "fixed");
@@ -367,10 +370,9 @@
 
     </div>
 
-   <!-- 모달 -->
+    <!-- 모달 -->
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <div class="popup">
                 <button type="button" class="btn-close position-absolute top-0 end-0 p-2" aria-label="Close"
                     id="closeModal" onclick="closeModal()"></button>
                 <!-- 사진 -->
@@ -385,7 +387,6 @@
                     <input type="text" id="name" class="form-control" aria-describedby="nameHelp">
                     <div id="nameHelp" class="form-text">이름을 입력하세요.</div>
                 </div>
-            </div>
             <!-- 생년월일 -->
             <div class="mb-3 form-item">
                 <label for="birthdate" class="form-label">생년월일</label>
@@ -439,14 +440,14 @@
                 <input type="text" id="blog" class="form-control" aria-describedby="blogHelp">
                 <div id="blogHelp" class="form-text">블로그 주소를 써 주세요.</div>
             </div>
-        
+
             <button id="savebtn" type="button">등록</button>
             </p>
         </div>
-        </div>
     </div>
-            </div>
-        </div>
+    </div>
+    </div>
+    </div>
 </body>
 
 </html>
