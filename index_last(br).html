@@ -227,9 +227,14 @@
             $(".modal input").prop("disabled", true);
             $(".modal select").prop("disabled", true);
 
+            // "수정" 버튼 클릭 시 실행되는 로직
             $('#savebtn').text('수정').off('click').on('click', async function () {
                 $(".modal input").prop("disabled", false);
                 $(".modal select").prop("disabled", false);
+
+                // ... 기존 정보를 수정하는 로직 추가 ...
+
+                $('#savebtn').text('등록');  // 수정 완료 후 버튼 텍스트 변경
 
             });
         });
@@ -255,12 +260,10 @@
         const db = getFirestore(app);
 
         $("#savebtn").click(async function () {
-            let image = $('#image').val();
             let name = $('#name').val();
+            let image = $('#image').val();
             let year = $('#year').val();
-            // let month = $('#month').val();
-            var m = document.getElementById("month");
-            var month = m.value;
+            let month = $('#month').val();
             let day = $('#day').val();
             let mbti = $('#mbti').val();
             let introduce = $('#introduce').val();
@@ -270,7 +273,6 @@
 
             let doc = {
                 'image': image,
-                'name': name,
                 'year': year,
                 'month': month,
                 'day': day,
@@ -280,11 +282,31 @@
                 'collabo': collabo,
                 'blog': blog
             };
-            await addDoc(collection(db, "self_intro"), doc);
-            alert('저장 완료');
+
+            // 주어진 이름의 문서가 이미 존재하는지 확인
+            const documentExists = await doesDocumentExist(name);
+
+            if (documentExists) {
+                // 기존 문서를 업데이트
+                await updateDocument(name, doc);
+                alert('수정 완료');
+            } else {
+                // 새로운 문서를 추가
+                await addDoc(collection(db, "self_intro"), { 'name': name, ...doc });
+                alert('저장 완료');
+            }
+
             window.location.reload();
-            console.log("저장완료")
-        })
+
+            // "상세 보기" 버튼을 클릭할 때의 이벤트 핸들러
+            link.click(function () {
+                resetForm();
+                modal.css("display", "block");
+                centerModal();
+                $('#savebtn').text('등록');
+            });
+
+        });
 
         // get메소드로 파이어베이스에 저장된 데이터 가져오기
         let docs = await getDocs(collection(db, "self_intro"));
@@ -371,21 +393,7 @@
                 'blog': blog
             };
 
-            // 주어진 이름의 문서가 이미 존재하는지 확인
-            const documentExists = await doesDocumentExist(name);
-
-            if (documentExists) {
-                // 기존 문서를 업데이트
-                await updateDocument(name, doc);
-                alert('수정 완료');
-            } else {
-                // 새로운 문서를 추가
-                await addDoc(collection(db, "self_intro"), { 'name': name, ...doc });
-                alert('저장 완료');
-            }
-
-            window.location.reload();
-        });
+            
 
     </script>
 </head>
