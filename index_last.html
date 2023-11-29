@@ -129,7 +129,42 @@
             resetForm();
             modal.css("display", "block");
             centerModal();
+
+            // 항상 등록 버튼이게 바꿈
             $('#savebtn').text('등록');
+
+            // 등록 버튼을 눌러 저장
+            $("#savebtn").click(async function () {
+                let image = $('#image').val();
+                let name = $('#name').val();
+                let year = $('#year').val();
+                // let month = $('#month').val();
+                var m = document.getElementById("month");
+                var month = m.value;
+                let day = $('#day').val();
+                let mbti = $('#mbti').val();
+                let introduce = $('#introduce').val();
+                let pors = $('#pors').val();
+                let collabo = $('#collabo').val();
+                let blog = $('#blog').val();
+
+                let doc = {
+                    'image': image,
+                    'name': name,
+                    'year': year,
+                    'month': month,
+                    'day': day,
+                    'mbti': mbti,
+                    'introduce': introduce,
+                    'pors': pors,
+                    'collabo': collabo,
+                    'blog': blog
+                };
+                await addDoc(collection(db, "self_intro"), doc);
+                alert('저장 완료');
+                window.location.reload();
+                console.log("저장완료")
+            })
         });
 
         // 사용자가 모달 외부를 클릭하면 모달을 숨김
@@ -174,7 +209,7 @@
         }
         $("#closeModal, #closeModalBtn").on('click', closeModal);
 
-
+        // 모달 내용 초기화
         function resetForm() {
             document.getElementById("image").value = "";
             document.getElementById("name").value = "";
@@ -253,38 +288,6 @@
             // Firebase 인스턴스 초기화
             const app = initializeApp(firebaseConfig);
             const db = getFirestore(app);
-
-            $("#savebtn").click(async function () {
-                let image = $('#image').val();
-                let name = $('#name').val();
-                let year = $('#year').val();
-                // let month = $('#month').val();
-                var m = document.getElementById("month");
-                var month = m.value;
-                let day = $('#day').val();
-                let mbti = $('#mbti').val();
-                let introduce = $('#introduce').val();
-                let pors = $('#pors').val();
-                let collabo = $('#collabo').val();
-                let blog = $('#blog').val();
-
-                let doc = {
-                    'image': image,
-                    'name': name,
-                    'year': year,
-                    'month': month,
-                    'day': day,
-                    'mbti': mbti,
-                    'introduce': introduce,
-                    'pors': pors,
-                    'collabo': collabo,
-                    'blog': blog
-                };
-                await addDoc(collection(db, "self_intro"), doc);
-                alert('저장 완료');
-                window.location.reload();
-                console.log("저장완료")
-            })
 
             // get메소드로 파이어베이스에 저장된 데이터 가져오기
             let docs = await getDocs(collection(db, "self_intro"));
