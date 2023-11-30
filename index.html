@@ -547,19 +547,20 @@
             top: 60%;
             left: 20%;
             transform: translate(-10%, -20%);
-                        
+
             font-size: 4em;
             font-weight: bold;
             text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6);
 
         }
 
-        
+
 
         /* 제일 굵은 글씨 굵기 - 비공일 헤더 */
-         h1, h4 {
+        h1,
+        h4 {
             font-weight: 700;
-            color : whitesmoke
+            color: whitesmoke
         }
 
         h3 {
@@ -802,7 +803,8 @@
             border-radius: 5px;
             transition: background-color 0.3s ease;
             width: 100px;
-            height: 40px
+            height: 40px;
+            display:none;
         }
 
         #closeModalBtn {
@@ -825,7 +827,8 @@
         }
 
         .myButtons {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
         }
     </style>
     <script type="module">
@@ -877,6 +880,11 @@
         // 모달
         var modal = $("#myModal");
 
+        function showDeleteBtn() {
+            var deleteButton = document.getElementById("deleteBtn");
+            deleteButton.style.display = "block";
+        }
+
         // 상세 보기 링크를 클릭하면 모달을 표시
         link.click(function () {
             resetForm();
@@ -885,56 +893,53 @@
 
             // 항상 등록 버튼이게 바꿈
             $('#savebtn').text('등록');
-
-            // 모달이 열려있을 때만 삭제 버튼을 가림
-            $('#deleteBtn').hide();
         });
 
         // 등록 버튼을 눌러 저장
         $("#savebtn").on('click', async function () {
-                // Check if any of the required fields is empty
-                if (!$('#image').val() ||
-                    !$('#name').val() ||
-                    !$('#year').val() ||
-                    !$('#month').val() ||
-                    !$('#day').val() ||
-                    !$('#mbti').val() ||
-                    !$('#introduce').val() ||
-                    !$('#pors').val() ||
-                    !$('#collabo').val() ||
-                    !$('#blog').val()) {
-                    alert('모든 항목을 입력해야 등록이 가능합니다.');
-                } else {
-                    let image = $('#image').val();
-                    let name = $('#name').val();
-                    let year = $('#year').val();
-                    var m = document.getElementById("month");
-                    var month = m.value;
-                    let day = $('#day').val();
-                    let mbti = $('#mbti').val();
-                    let introduce = $('#introduce').val();
-                    let pors = $('#pors').val();
-                    let collabo = $('#collabo').val();
-                    let blog = $('#blog').val();
+            // Check if any of the required fields is empty
+            if (!$('#image').val() ||
+                !$('#name').val() ||
+                !$('#year').val() ||
+                !$('#month').val() ||
+                !$('#day').val() ||
+                !$('#mbti').val() ||
+                !$('#introduce').val() ||
+                !$('#pors').val() ||
+                !$('#collabo').val() ||
+                !$('#blog').val()) {
+                alert('모든 항목을 입력해야 등록이 가능합니다.');
+            } else {
+                let image = $('#image').val();
+                let name = $('#name').val();
+                let year = $('#year').val();
+                var m = document.getElementById("month");
+                var month = m.value;
+                let day = $('#day').val();
+                let mbti = $('#mbti').val();
+                let introduce = $('#introduce').val();
+                let pors = $('#pors').val();
+                let collabo = $('#collabo').val();
+                let blog = $('#blog').val();
 
-                    let doc = {
-                        'image': image,
-                        'name': name,
-                        'year': year,
-                        'month': month,
-                        'day': day,
-                        'mbti': mbti,
-                        'introduce': introduce,
-                        'pors': pors,
-                        'collabo': collabo,
-                        'blog': blog
-                    };
-                    await addDoc(collection(db, "self_intro"), doc);
-                    alert('저장 완료');
-                    window.location.reload();
-                    console.log("저장완료");
-                }
-            });
+                let doc = {
+                    'image': image,
+                    'name': name,
+                    'year': year,
+                    'month': month,
+                    'day': day,
+                    'mbti': mbti,
+                    'introduce': introduce,
+                    'pors': pors,
+                    'collabo': collabo,
+                    'blog': blog
+                };
+                await addDoc(collection(db, "self_intro"), doc);
+                alert('저장 완료');
+                window.location.reload();
+                console.log("저장완료");
+            }
+        });
 
 
         // 사용자가 모달 외부를 클릭하면 모달을 숨김
@@ -1049,7 +1054,7 @@
             $('#blog').val(blog);
 
             modal.show();
-            $('#deleteBtn').show();
+            showDeleteBtn();
             $(".modal input").prop("disabled", true);
             $(".modal select").prop("disabled", true);
 
@@ -1168,59 +1173,59 @@
 <body>
     <div class="contentscroll">
         <h1>비공일</h1>
-            <!-- 눈 내리기 -->
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <div class="snowflake"></div>
-            <h1>비공일</h1>
-            <h4>비가 와도 눈이 와도 공부해서 일꾼이 되자.</h4>
+        <!-- 눈 내리기 -->
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <h1>비공일</h1>
+        <h4>비가 와도 눈이 와도 공부해서 일꾼이 되자.</h4>
     </div>
     <div class="contentscroll">
         <!-- <h1>test2</h1> -->
@@ -1246,57 +1251,57 @@
         </div>
     </div>
     <div class="contentscroll">
-                <!-- 눈 내리기 -->
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
-    <div class="snowflake"></div>
+        <!-- 눈 내리기 -->
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
         <!-- <h1>test3</h1> -->
         <!-- 상세 보기 링크 -->
         <div class="content-save">
@@ -1390,7 +1395,7 @@
             </div>
             <div class="myButtons">
                 <button id="savebtn" type="button">등록</button>
-                <button id="deleteBtn" type="button" class="btn btn-danger">삭제</button>
+                <button id="deleteBtn" type="button" class="btn btn-danger" style="display: none">삭제</button>
                 <button id="closeModalBtn" type="button">닫기</button>
             </div>
         </div>
