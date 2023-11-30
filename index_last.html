@@ -223,61 +223,11 @@
             /* Add border-radius for rounded corners */
             transition: background-color 0.3s ease;
             /* Smooth transition for background color */
-            width: 70px;
-            height: 40px
         }
 
         #savebtn:hover {
             background-color: #218838;
             /* Darker background color on hover */
-        }
-
-
-        #deleteBtn {
-            background-color: rgba(188, 67, 30, 0.982), 65, 40;
-            /* Set button background color */
-            color: #fff;
-            /* Set button text color */
-            border: none;
-            /* Remove border */
-            padding: 10px 20px;
-            /* Add padding for a comfortable button size */
-            font-size: 14px;
-            /* Increase font size */
-            cursor: pointer;
-            border-radius: 5px;
-            /* Add border-radius for rounded corners */
-            transition: background-color 0.3s ease;
-            /* Smooth transition for background color */
-            width: 70px;
-            height: 40px
-        }
-
-        #savebtn:hover {
-            background-color: rgb(132, 15, 15), 60, 33;
-        }
-
-        #closeModalBtn {
-            background-color: #aeaeae;
-            color: #fff;
-            border: none;
-            padding: 8px 20px;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            margin-top: 1px;
-            width: 70px;
-            height: 40px;
-
-        }
-
-        #closeModalBtn:hover {
-            background-color: #6b6868;
-        }
-
-        .myButtons {
-            text-align: center;
         }
     </style>
     <script type="module">
@@ -457,33 +407,36 @@
                 $(".modal input").prop("disabled", false);
                 $(".modal select").prop("disabled", false);
 
-                let docRef = doc(db, 'self_intro', documentId);
+                $('#savebtn').text('수정완료').off('click').on('click', async function () {
+                    let docRef = doc(db, 'self_intro', documentId);
 
-                let updatedData = {
-                    'image': imageUrl,
-                    'name': name,
-                    'year': year,
-                    'month': month,
-                    'day': day,
-                    'mbti': mbti,
-                    'introduce': introduce,
-                    'pors': pors,
-                    'collabo': collabo,
-                    'blog': blog
-                };
+                    let updatedData = {
+                        'image': imageUrl,
+                        'name': name,
+                        'year': year,
+                        'month': month,
+                        'day': day,
+                        'mbti': mbti,
+                        'introduce': introduce,
+                        'pors': pors,
+                        'collabo': collabo,
+                        'blog': blog
+                    };
 
-                try {
-                    await updateDoc(docRef, updatedData);
-                    console.log('문서 업데이트 완료');
-                    // // 얼럿 띄우기
-                    // alert('수정완료');
-                    // // 모달 닫기
-                    // closeModal();
-                } catch (error) {
-                    console.error('문서 업데이트 중 에러 발생:', error);
-                    // 실패했을 때의 처리 추가
-                    alert('문서 업데이트 중 에러가 발생했습니다.');
-                }
+                    try {
+                        await updateDoc(docRef, updatedData);
+                        console.log('문서 업데이트 완료');
+                        // 얼럿 띄우기
+                        alert('수정완료');
+                        // 모달 닫기
+                        closeModal();
+                    } catch (error) {
+                        console.error('문서 업데이트 중 에러 발생:', error);
+                        // 실패했을 때의 처리 추가
+                        alert('문서 업데이트 중 에러가 발생했습니다.');
+                    }
+                });
+
             });
         });
 
