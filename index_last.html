@@ -276,11 +276,8 @@
             background-color: #6b6868;
         }
 
-
-        /* 버튼 같은 인라인에 넣기 */
-        .buttons {
+        .myButtons {
             text-align: center;
-            display: inline-block;
         }
     </style>
     <script type="module">
@@ -706,9 +703,11 @@
                 <input type="text" id="blog" class="form-control" aria-describedby="blogHelp">
                 <div id="blogHelp" class="form-text">블로그 주소를 써 주세요.</div>
             </div>
-            <button id="savebtn" type="button">등록</button>
-            <button id="deleteBtn" type="button" class="btn btn-danger">삭제</button>
-            <button id="closeModalBtn" type="button">닫기</button>
+            <div class="myButtons">
+                <button id="savebtn" type="button">등록</button>
+                <button id="deleteBtn" type="button" class="btn btn-danger">삭제</button>
+                <button id="closeModalBtn" type="button">닫기</button>
+            </div>
         </div>
     </div>
     </div>
