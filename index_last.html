@@ -53,24 +53,36 @@
         .content-container {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             max-width: 1000px;
             margin: 20px auto;
-            width: 100%;
             padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .image-container {
-            width: 500px;
-            height: 400px;
-            background-color: green;
+            width: 50%;
+            max-width: 500px;
+            height: auto;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         .text-container {
             width: 50%;
-            height: auto;
+            max-width: 500px;
             box-sizing: border-box;
-            margin-left: 10px;
+            margin-left: 20px;
         }
 
         .content-save {
@@ -87,8 +99,16 @@
             margin: 30px auto 0px auto;
         }
 
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+
         .card-img-top {
+            width: 100%;
             height: 250px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
 
         .form-item .form-label {
@@ -138,51 +158,6 @@
             border: 1px solid #888;
             width: 50%;
             border-radius: 15px;
-        }
-
-
-        /* 팀 소개 css */
-        .content-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            /* Set background color */
-            border: 1px solid #ddd;
-            /* Add a border */
-            border-radius: 10px;
-            /* Add border-radius for rounded corners */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            /* Add a subtle box shadow */
-        }
-
-        .image-container {
-            width: 50%;
-            max-width: 500px;
-            /* Limit maximum width for responsiveness */
-            height: auto;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            /* Add border-radius for rounded corners */
-            overflow: hidden;
-            /* Hide overflowing content */
-        }
-
-        .image-container img {
-            width: 100%;
-            height: 350px;
-            display: block;
-        }
-
-        .text-container {
-            width: 50%;
-            max-width: 500px;
-            /* Limit maximum width for responsiveness */
-            box-sizing: border-box;
-            margin-left: 20px;
         }
 
         h3 {
@@ -239,20 +214,70 @@
             /* Set button text color */
             border: none;
             /* Remove border */
-            padding: 10px 20px;
+            padding: 8px 20px;
             /* Add padding for a comfortable button size */
-            font-size: 16px;
+            font-size: 14px;
             /* Increase font size */
             cursor: pointer;
             border-radius: 5px;
             /* Add border-radius for rounded corners */
             transition: background-color 0.3s ease;
             /* Smooth transition for background color */
+            width: 70px;
+            height: 40px
         }
 
         #savebtn:hover {
             background-color: #218838;
             /* Darker background color on hover */
+        }
+
+
+        #deleteBtn {
+            background-color: rgba(188, 67, 30, 0.982), 65, 40;
+            /* Set button background color */
+            color: #fff;
+            /* Set button text color */
+            border: none;
+            /* Remove border */
+            padding: 10px 20px;
+            /* Add padding for a comfortable button size */
+            font-size: 14px;
+            /* Increase font size */
+            cursor: pointer;
+            border-radius: 5px;
+            /* Add border-radius for rounded corners */
+            transition: background-color 0.3s ease;
+            /* Smooth transition for background color */
+            width: 70px;
+            height: 40px
+        }
+
+        #savebtn:hover {
+            background-color: rgb(132, 15, 15), 60, 33;
+        }
+
+        #closeModalBtn {
+            background-color: #aeaeae;
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin-top: 1px;
+            width: 70px;
+            height: 40px;
+
+        }
+
+        #closeModalBtn:hover {
+            background-color: #6b6868;
+        }
+
+        .myButtons {
+            text-align: center;
         }
     </style>
     <script type="module">
@@ -580,7 +605,7 @@
             <p>팀이름 : 비 공 일</p>
             <p>팀특징 : 열정!열정!!열정!!!</p>
             <p>팀목표 : 프로젝트 마지막까지 서로 끌어주고 밀어주고 잘 굴러가는 팀이 되자.</p>
-            <p>우리 팀의 약속</p>
+            <p> <<우리 팀의 약속>> </p>
             <p>1. 지각, 무단이탈 등 중도 하차/포기 금지</p>
             <p>2. 좋은 건 다같이.. 모르는 것도 다 같이..</p>
             <p>3. 아…, 후…, 씁…?, 하… 금지</p>
@@ -617,13 +642,13 @@
             <div class="mb-3 form-item">
                 <label for="image" class="form-label">사진</label>
                 <input type="text" id="image" class="form-control" aria-describedby="imageHelp">
-                <div id="imageHelp" class="form-text">사진 URL을 입력하세요.</div>
+                <div id="imageHelp" class="form-text">사진 URL을 등록해세요.</div>
             </div>
             <!-- 이름 -->
             <div class="mb-3 form-item">
                 <label for="name" class="form-label">이름</label>
                 <input type="text" id="name" class="form-control" aria-describedby="nameHelp">
-                <div id="nameHelp" class="form-text">이름을 입력하세요.</div>
+                <div id="nameHelp" class="form-text">이름을 입력해주세요.</div>
             </div>
             <!-- 생년월일 -->
             <div class="mb-3 form-item">
@@ -652,13 +677,13 @@
             <div class="mb-3 form-item">
                 <label for="mbti" class="form-label">MBTI</label>
                 <input type="text" id="mbti" class="form-control" aria-describedby="mbtiHelp">
-                <div id="mbtiHelp" class="form-text">MBTI 유형을 입력하세요.</div>
+                <div id="mbtiHelp" class="form-text">MBTI 유형을 입력해주세요.</div>
             </div>
             <!-- 자기소개 -->
             <div class="mb-3 form-item">
                 <label for="introduce" class="form-label">자기소개</label>
                 <input type="text" id="introduce" class="form-control" aria-describedby="introduceHelp">
-                <div id="introduceHelp" class="form-text">자신을 소개해 주세요.</div>
+                <div id="introduceHelp" class="form-text">자신을 소개해주세요.</div>
             </div>
             <!-- 나의 장점 -->
             <div class="mb-3 form-item">
@@ -670,17 +695,19 @@
             <div class="mb-3 form-item">
                 <label for="collabo" class="form-label">협업 스타일 소개</label>
                 <input type="text" id="collabo" class="form-control" aria-describedby="collaboHelp">
-                <div id="collaboHelp" class="form-text">당신의 협업 스타일은 어떤가요?</div>
+                <div id="collaboHelp" class="form-text">당신의 협업 스타일을 알려주세요</div>
             </div>
             <!-- 블로그 주소 -->
             <div class="mb-3 form-item">
                 <label for="blog" class="form-label">블로그 주소</label>
                 <input type="text" id="blog" class="form-control" aria-describedby="blogHelp">
-                <div id="blogHelp" class="form-text">블로그 주소를 써 주세요.</div>
+                <div id="blogHelp" class="form-text">블로그 주소를 등록해주세요.</div>
             </div>
-            <button id="savebtn" type="button">등록</button>
-            <button id="deleteBtn" type="button" class="btn btn-danger">삭제</button>
-            <button id="closeModalBtn" type="button">닫기</button>
+            <div class="myButtons">
+                <button id="savebtn" type="button">등록</button>
+                <button id="deleteBtn" type="button" class="btn btn-danger">삭제</button>
+                <button id="closeModalBtn" type="button">닫기</button>
+            </div>
         </div>
     </div>
     </div>
