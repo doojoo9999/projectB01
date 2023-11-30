@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>team B01</title>
+    <title>비공일</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <style>
@@ -23,7 +23,7 @@
             font-size: 14px;
             outline: none;
         }
-        
+
         html {
             overflow: hidden;
         }
@@ -94,36 +94,24 @@
         .content-container {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             max-width: 1000px;
             margin: 20px auto;
+            width: 100%;
             padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .image-container {
-            width: 50%;
-            max-width: 500px;
-            height: auto;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .image-container img {
-            width: 100%;
-            height: auto;
-            display: block;
+            width: 500px;
+            height: 400px;
+            background-color: green;
         }
 
         .text-container {
             width: 50%;
-            max-width: 500px;
+            height: auto;
             box-sizing: border-box;
-            margin-left: 20px;
+            margin-left: 10px;
         }
 
         .content-save {
@@ -134,22 +122,14 @@
         }
 
         .mycards {
-            width: 1200px;
+            width: 900px;
             height: 300px;
 
             margin: 30px auto 0px auto;
         }
 
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-        }
-
         .card-img-top {
-            width: 100%;
             height: 250px;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
         }
 
         .form-item .form-label {
@@ -199,12 +179,57 @@
             border: 1px solid #888;
             width: 50%;
             border-radius: 15px;
-overflow-y: auto;
+            overflow-y: auto;
             /* 세로 스크롤이 필요할 때만 스크롤이 표시되도록 합니다. */
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+        }
+
+
+        /* 팀 소개 css */
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            /* Set background color */
+            border: 1px solid #ddd;
+            /* Add a border */
+            border-radius: 10px;
+            /* Add border-radius for rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* Add a subtle box shadow */
+        }
+
+        .image-container {
+            width: 50%;
+            max-width: 500px;
+            /* Limit maximum width for responsiveness */
+            height: auto;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            /* Add border-radius for rounded corners */
+            overflow: hidden;
+            /* Hide overflowing content */
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .text-container {
+            width: 50%;
+            max-width: 500px;
+            /* Limit maximum width for responsiveness */
+            box-sizing: border-box;
+            margin-left: 20px;
         }
 
         h3 {
@@ -261,70 +286,20 @@ overflow-y: auto;
             /* Set button text color */
             border: none;
             /* Remove border */
-            padding: 8px 20px;
+            padding: 10px 20px;
             /* Add padding for a comfortable button size */
-            font-size: 14px;
+            font-size: 16px;
             /* Increase font size */
             cursor: pointer;
             border-radius: 5px;
             /* Add border-radius for rounded corners */
             transition: background-color 0.3s ease;
             /* Smooth transition for background color */
-            width: 100px;
-            height: 40px
         }
 
         #savebtn:hover {
             background-color: #218838;
             /* Darker background color on hover */
-        }
-
-
-        #deleteBtn {
-            background-color: rgba(188, 67, 30, 0.982), 65, 40;
-            /* Set button background color */
-            color: #fff;
-            /* Set button text color */
-            border: none;
-            /* Remove border */
-            padding: 10px 20px;
-            /* Add padding for a comfortable button size */
-            font-size: 14px;
-            /* Increase font size */
-            cursor: pointer;
-            border-radius: 5px;
-            /* Add border-radius for rounded corners */
-            transition: background-color 0.3s ease;
-            /* Smooth transition for background color */
-            width: 100px;
-            height: 40px
-        }
-
-        #savebtn:hover {
-            background-color: rgb(132, 15, 15), 60, 33;
-        }
-
-        #closeModalBtn {
-            background-color: #aeaeae;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            margin-top: 1px;
-            width: 100px;
-            height: 40px;
-
-        }
-
-        #closeModalBtn:hover {
-            background-color: #6b6868;
-        }
-
-        .myButtons {
-            text-align: center;
         }
     </style>
     <script type="module">
@@ -543,36 +518,33 @@ overflow-y: auto;
                 $(".modal input").prop("disabled", false);
                 $(".modal select").prop("disabled", false);
 
-                $('#savebtn').text('수정완료').off('click').on('click', async function () {
-                    let docRef = doc(db, 'self_intro', documentId);
+                let docRef = doc(db, 'self_intro', documentId);
 
-                    let updatedData = {
-                        'image': imageUrl,
-                        'name': name,
-                        'year': year,
-                        'month': month,
-                        'day': day,
-                        'mbti': mbti,
-                        'introduce': introduce,
-                        'pors': pors,
-                        'collabo': collabo,
-                        'blog': blog
-                    };
+                let updatedData = {
+                    'image': imageUrl,
+                    'name': name,
+                    'year': year,
+                    'month': month,
+                    'day': day,
+                    'mbti': mbti,
+                    'introduce': introduce,
+                    'pors': pors,
+                    'collabo': collabo,
+                    'blog': blog
+                };
 
-                    try {
-                        await updateDoc(docRef, updatedData);
-                        console.log('문서 업데이트 완료');
-                        // 얼럿 띄우기
-                        alert('수정완료');
-                        // 모달 닫기
-                        closeModal();
-                    } catch (error) {
-                        console.error('문서 업데이트 중 에러 발생:', error);
-                        // 실패했을 때의 처리 추가
-                        alert('문서 업데이트 중 에러가 발생했습니다.');
-                    }
-                });
-
+                try {
+                    await updateDoc(docRef, updatedData);
+                    console.log('문서 업데이트 완료');
+                    // // 얼럿 띄우기
+                    // alert('수정완료');
+                    // // 모달 닫기
+                    // closeModal();
+                } catch (error) {
+                    console.error('문서 업데이트 중 에러 발생:', error);
+                    // 실패했을 때의 처리 추가
+                    alert('문서 업데이트 중 에러가 발생했습니다.');
+                }
             });
         });
 
@@ -682,7 +654,6 @@ overflow-y: auto;
 <body>
     <div class="contentscroll">
         <h1>비공일</h1>
-        <h2>"비"상하게 "공"부해서 도움이 되는 "일"꾼이 되자!!</h2>
     </div>
     <div class="contentscroll">
         <h1>test2</h1>
@@ -693,10 +664,10 @@ overflow-y: auto;
 
             <div class="text-container">
                 <h3>팀 소개</h3>
-                <p>팀이름 : 비 공 일</p>
+                <p>팀이름 : 비공일</p>
                 <p>팀특징 : 열정!열정!!열정!!!</p>
                 <p>팀목표 : 프로젝트 마지막까지 서로 끌어주고 밀어주고 잘 굴러가는 팀이 되자.</p>
-                <p> 우리 팀의 약속 </p>
+                <p>우리 팀의 약속</p>
                 <p>지각, 무단이탈 등 중도 하차/포기 금지</p>
                 <p>좋은 건 다같이.. 모르는 것도 다 같이..</p>
                 <p>아.., 후…, 씁…?, 하… 금지</p>
@@ -705,44 +676,13 @@ overflow-y: auto;
             </div>
         </div>
     </div>
-<div class="contentscroll">
+    <div class="contentscroll">
         <h1>test3</h1>
 
         <div class="mycards">
             <div id="update_card" class="row row-cols-1 row-cols-md-4 g-4">
                 <div class="col">
                     <!-- <div class="card h-100">
-=======
-    <header>
-        <h1>비 공 일</h1>
-        <h2>"비"상하게 "공"부해서 도움이 되는 "일"꾼이 되자!!</h2>
-    </header>
-
-    <div class="content-container">
-        <div class="image-container">
-            <img src="c:\Users\Admin\Desktop\팀소개 사진.PNG">
-        </div>
-        <div class="text-container">
-            <h3>팀 소개</h3>
-            <p>팀이름 : 비 공 일</p>
-            <p>팀특징 : 열정!열정!!열정!!!</p>
-            <p>팀목표 : 프로젝트 마지막까지 서로 끌어주고 밀어주고 잘 굴러가는 팀이 되자.</p>
-            <p> <<우리 팀의 약속>> </p>
-            <p>1. 지각, 무단이탈 등 중도 하차/포기 금지</p>
-            <p>2. 좋은 건 다같이.. 모르는 것도 다 같이..</p>
-            <p>3. 아…, 후…, 씁…?, 하… 금지</p>
-            <p>4. 일단 해 보기</p>
-            <p>5. 일정 생기면 사전에 팀원에게 알리기</p>
-        </div>
-    </div>
-    <!-- 상세 보기 링크 -->
-    <div class="content-save">
-        <button type="button" id="myLink" class="btn btn-primary">일꾼등록</button>
-    </div>
-    <div class="mycards">
-        <div id="update_card" class="row row-cols-1 row-cols-md-4 g-4">
-            <div class="col">
-                <!-- <div class="card h-100">
                     <img src="https://images.unsplash.com/photo-1446768500601-ac47e5ec3719?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80"
                         class="card-img-top" alt="...">
                     <div class="card-body">
@@ -750,11 +690,11 @@ overflow-y: auto;
                         <p class="card-text"></p>
                     </div>
                 </div> -->
+                </div>
             </div>
-        </div>
 
+        </div>
     </div>
-</div>
     <div class="contentscroll">
         <!-- 상세 보기 링크 -->
         <div class="content-save">
@@ -770,13 +710,13 @@ overflow-y: auto;
             <div class="mb-3 form-item">
                 <label for="image" class="form-label">사진</label>
                 <input type="text" id="image" class="form-control" aria-describedby="imageHelp">
-                <div id="imageHelp" class="form-text">사진 URL을 등록해세요.</div>
+                <div id="imageHelp" class="form-text">사진 URL을 입력하세요.</div>
             </div>
             <!-- 이름 -->
             <div class="mb-3 form-item">
                 <label for="name" class="form-label">이름</label>
                 <input type="text" id="name" class="form-control" aria-describedby="nameHelp">
-                <div id="nameHelp" class="form-text">이름을 입력해주세요.</div>
+                <div id="nameHelp" class="form-text">이름을 입력하세요.</div>
             </div>
             <!-- 생년월일 -->
             <div class="mb-3 form-item">
@@ -805,13 +745,13 @@ overflow-y: auto;
             <div class="mb-3 form-item">
                 <label for="mbti" class="form-label">MBTI</label>
                 <input type="text" id="mbti" class="form-control" aria-describedby="mbtiHelp">
-                <div id="mbtiHelp" class="form-text">MBTI 유형을 입력해주세요.</div>
+                <div id="mbtiHelp" class="form-text">MBTI 유형을 입력하세요.</div>
             </div>
             <!-- 자기소개 -->
             <div class="mb-3 form-item">
                 <label for="introduce" class="form-label">자기소개</label>
                 <input type="text" id="introduce" class="form-control" aria-describedby="introduceHelp">
-                <div id="introduceHelp" class="form-text">자신을 소개해주세요.</div>
+                <div id="introduceHelp" class="form-text">자신을 소개해 주세요.</div>
             </div>
             <!-- 나의 장점 -->
             <div class="mb-3 form-item">
@@ -823,19 +763,17 @@ overflow-y: auto;
             <div class="mb-3 form-item">
                 <label for="collabo" class="form-label">협업 스타일 소개</label>
                 <input type="text" id="collabo" class="form-control" aria-describedby="collaboHelp">
-                <div id="collaboHelp" class="form-text">당신의 협업 스타일을 알려주세요</div>
+                <div id="collaboHelp" class="form-text">당신의 협업 스타일은 어떤가요?</div>
             </div>
             <!-- 블로그 주소 -->
             <div class="mb-3 form-item">
                 <label for="blog" class="form-label">블로그 주소</label>
                 <input type="text" id="blog" class="form-control" aria-describedby="blogHelp">
-                <div id="blogHelp" class="form-text">블로그 주소를 등록해주세요.</div>
+                <div id="blogHelp" class="form-text">블로그 주소를 써 주세요.</div>
             </div>
-            <div class="myButtons">
-                <button id="savebtn" type="button">등록</button>
-                <button id="deleteBtn" type="button" class="btn btn-danger">삭제</button>
-                <button id="closeModalBtn" type="button">닫기</button>
-            </div>
+            <button id="savebtn" type="button">등록</button>
+            <button id="deleteBtn" type="button" class="btn btn-danger">삭제</button>
+            <button id="closeModalBtn" type="button">닫기</button>
         </div>
     </div>
     </div>
