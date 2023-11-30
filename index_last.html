@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>비공일</title>
+    <title>tema B01</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -77,6 +77,7 @@
             /* Add spacing below the heading */
         }
 
+        /* 제일 작은 굵기 - 팀 소개 내용 */
         p {
             /* 제일 작은 굵기 - 팀 소개 내용 */
             font-weight: 400;
@@ -85,6 +86,7 @@
             margin-bottom: 10px;
             /* Add spacing below paragraphs */
         }
+
 
         body {
             margin: 0;
@@ -115,6 +117,7 @@
             width: 50%;
             max-width: 500px;
             height: auto;
+            background-color: #f0f0f0;
             border-radius: 10px;
             overflow: hidden;
         }
@@ -127,9 +130,9 @@
 
         .text-container {
             width: 50%;
-            height: auto;
+            max-width: 500px;
             box-sizing: border-box;
-            margin-left: 10px;
+            margin-left: 20px;
         }
 
         .content-save {
@@ -140,7 +143,7 @@
         }
 
         .mycards {
-            width: 1200px;
+            width: 1100px;
             height: 300px;
 
             margin: 30px auto 0px auto;
@@ -391,9 +394,10 @@
 
             // 모달이 열려있을 때만 삭제 버튼을 가림
             $('#deleteBtn').hide();
+        });
 
-            // 등록 버튼을 눌러 저장
-            $("#savebtn").click(async function () {
+        // 등록 버튼을 눌러 저장
+        $("#savebtn").on('click', async function () {
                 // Check if any of the required fields is empty
                 if (!$('#image').val() ||
                     !$('#name').val() ||
@@ -437,7 +441,6 @@
                     console.log("저장완료");
                 }
             });
-        });
 
 
         // 사용자가 모달 외부를 클릭하면 모달을 숨김
@@ -453,16 +456,18 @@
             var windowHeight = $(window).height();
             var modalHeight = modalContent.outerHeight();
 
-            // 모달을 중앙에 정렬하기 위한 상단 위치 계산
-            var topPosition = Math.max(0, (windowHeight - modalHeight) / 2) + $(window).scroll();
+            // 모달 높이가 창 높이보다 작은 경우 상단 여백을 조정
+            if (modalHeight < windowHeight) {
+                modalContent.css("margin-top", "5%"); // 5%로 수정
+            } else {
+                // 모달 높이가 창 높이보다 큰 경우는 상단 여백을 5%로 고정
+                modalContent.css("margin-top", "5%");
+            }
 
-            modalContent.css({
-                "margin-top": topPosition + "px",
-                "position": "fixed",
-                "top": "50%",
-                "left": "50%",
-                "transform": "translate(-50%, -50%)"
-            });
+            modalContent.css("position", "fixed");
+            modalContent.css("top", "50%");
+            modalContent.css("left", "50%");
+            modalContent.css("transform", "translate(-50%, -50%)");
         }
 
         // 창 크기가 변경될 때도 모달을 가운데로 정렬
@@ -656,6 +661,14 @@
                 return false;
             }
         }
+
+        // // 모달 수정을 위한 텍스트 창 활성화
+        $("#updatebtn").click(async function () {
+            $(".modal input").prop("disabled", false);
+            $(".modal select").prop("disabled", false);
+        });
+
+
     </script>
 </head>
 
@@ -667,7 +680,7 @@
         <!-- <h1>test2</h1> -->
         <div class="content-container">
             <div class="image-container">
-                <a href='https://ifh.cc/v-LzgvJk' target='_blank'><img src='https://ifh.cc/g/LzgvJk.jpg'></a>
+                <a href='https://ifh.cc/v-LzgvJk' target='_blank'></a><img src='https://ifh.cc/g/LzgvJk.jpg'></a>
             </div>
 
             <div class="text-container">
@@ -690,7 +703,7 @@
         <!-- <h1>test3</h1> -->
         <!-- 상세 보기 링크 -->
         <div class="content-save">
-            <button type="button" id="myLink" class="btnbtn-primary">일꾼등록</button>
+            <button type="button" id="myLink" class="btn btn-primary">일꾼등록</button>
         </div>
         <div class="mycards">
             <div id="update_card" class="row row-cols-1 row-cols-md-4 g-4">
@@ -777,13 +790,15 @@
                 <label for="blog" class="form-label">블로그 주소</label>
                 <input type="text" id="blog" class="form-control" aria-describedby="blogHelp">
                 <div id="blogHelp" class="form-text">블로그 주소를 써 주세요.</div>
-                <div class="myButtons">
-                    <button id="savebtn" type="button">등록</button>
-                    <button id="deleteBtn" type="button" class="btn btn-danger">삭제</button>
-                    <button id="closeModalBtn" type="button">닫기</button>
-                </div>
+            </div>
+            <div class="myButtons">
+                <button id="savebtn" type="button">등록</button>
+                <button id="deleteBtn" type="button" class="btn btn-danger">삭제</button>
+                <button id="closeModalBtn" type="button">닫기</button>
             </div>
         </div>
+    </div>
+    </div>
     </div>
     </div>
 </body>
