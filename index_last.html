@@ -301,37 +301,52 @@
             $('#deleteBtn').hide();
 
             // 등록 버튼을 눌러 저장
-            $("#savebtn").off('click').on('click', async function () {
-                let image = $('#image').val();
-                let name = $('#name').val();
-                let year = $('#year').val();
-                var m = document.getElementById("month");
-                var month = m.value;
-                let day = $('#day').val();
-                let mbti = $('#mbti').val();
-                let introduce = $('#introduce').val();
-                let pors = $('#pors').val();
-                let collabo = $('#collabo').val();
-                let blog = $('#blog').val();
+            $("#savebtn").click(async function () {
+                // Check if any of the required fields is empty
+                if (!$('#image').val() ||
+                    !$('#name').val() ||
+                    !$('#year').val() ||
+                    !$('#month').val() ||
+                    !$('#day').val() ||
+                    !$('#mbti').val() ||
+                    !$('#introduce').val() ||
+                    !$('#pors').val() ||
+                    !$('#collabo').val() ||
+                    !$('#blog').val()) {
+                    alert('모든 항목을 입력해야 등록이 가능합니다.');
+                } else {
+                    let image = $('#image').val();
+                    let name = $('#name').val();
+                    let year = $('#year').val();
+                    var m = document.getElementById("month");
+                    var month = m.value;
+                    let day = $('#day').val();
+                    let mbti = $('#mbti').val();
+                    let introduce = $('#introduce').val();
+                    let pors = $('#pors').val();
+                    let collabo = $('#collabo').val();
+                    let blog = $('#blog').val();
 
-                let doc = {
-                    'image': image,
-                    'name': name,
-                    'year': year,
-                    'month': month,
-                    'day': day,
-                    'mbti': mbti,
-                    'introduce': introduce,
-                    'pors': pors,
-                    'collabo': collabo,
-                    'blog': blog
-                };
-                await addDoc(collection(db, "self_intro"), doc);
-                alert('저장 완료');
-                window.location.reload();
-                console.log("저장완료")
+                    let doc = {
+                        'image': image,
+                        'name': name,
+                        'year': year,
+                        'month': month,
+                        'day': day,
+                        'mbti': mbti,
+                        'introduce': introduce,
+                        'pors': pors,
+                        'collabo': collabo,
+                        'blog': blog
+                    };
+                    await addDoc(collection(db, "self_intro"), doc);
+                    alert('저장 완료');
+                    window.location.reload();
+                    console.log("저장완료");
+                }
             });
         });
+
 
         // 사용자가 모달 외부를 클릭하면 모달을 숨김
         $(window).click(function (event) {
@@ -508,37 +523,6 @@
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-
-        $("#savebtn").click(async function () {
-            let image = $('#image').val();
-            let name = $('#name').val();
-            let year = $('#year').val();
-            var m = document.getElementById("month");
-            var month = m.value;
-            let day = $('#day').val();
-            let mbti = $('#mbti').val();
-            let introduce = $('#introduce').val();
-            let pors = $('#pors').val();
-            let collabo = $('#collabo').val();
-            let blog = $('#blog').val();
-
-            let doc = {
-                'image': image,
-                'name': name,
-                'year': year,
-                'month': month,
-                'day': day,
-                'mbti': mbti,
-                'introduce': introduce,
-                'pors': pors,
-                'collabo': collabo,
-                'blog': blog
-            };
-            await addDoc(collection(db, "self_intro"), doc);
-            alert('저장 완료');
-            window.location.reload();
-            console.log("저장완료")
-        })
 
         // get메소드로 파이어베이스에 저장된 데이터 가져오기
         let docs = await getDocs(collection(db, "self_intro"));
