@@ -12,6 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
@@ -21,6 +23,45 @@
             font-size: 14px;
             outline: none;
         }
+
+        html {
+            overflow: hidden;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .contentscroll {
+            width: 100%;
+            height: 100%;
+            background-color: whitesmoke;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .contentscroll>h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            font-size: 20em;
+            font-weight: bold;
+            text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6);
+
+        }
+
+        .contentscroll:nth-child(even) {
+            background-color: #333;
+        }
+
 
         /* 제일 굵은 글씨 굵기 - 비공일 헤더 */
         h1 {
@@ -138,6 +179,12 @@
             border: 1px solid #888;
             width: 50%;
             border-radius: 15px;
+            overflow-y: auto;
+            /* 세로 스크롤이 필요할 때만 스크롤이 표시되도록 합니다. */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
 
@@ -256,6 +303,47 @@
         }
     </style>
     <script type="module">
+
+        //스크롤 효과
+        //기본 이벤트 제거
+        window.addEventListener("wheel", function (e) {
+            e.preventDefault();
+        }, { passive: false });
+        //참조하는 요소 미리 탐색 및 선언
+        var $html = $("html");
+
+        var page = 1;
+
+        var lastPage = $(".content").length;
+
+        $html.animate({ scrollTop: 0 }, 10);
+
+        //휠을 굴리면 다음 페이지, 이전 페이지
+        $(window).on("wheel", function (e) {
+
+            if ($html.is(":animated")) return;
+
+            if (e.originalEvent.deltaY > 0) {
+                if (page == lastPage) return;
+
+                page++;
+            } else if (e.originalEvent.deltaY < 0) {
+                if (page == 1) return;
+
+                page--;
+            }
+            var posTop = (page - 1) * $(window).height();
+
+            $html.animate({ scrollTop: posTop });
+
+        });
+
+        // 카드 펼침 효과
+        AOS.init();
+
+        // 모달을 .contentscroll 요소에 추가
+        $("body").append(modal);
+
         // 상세 보기 링크
         var link = $("#myLink");
 
@@ -321,18 +409,16 @@
             var windowHeight = $(window).height();
             var modalHeight = modalContent.outerHeight();
 
-            // 모달 높이가 창 높이보다 작은 경우 상단 여백을 조정
-            if (modalHeight < windowHeight) {
-                modalContent.css("margin-top", "5%"); // 5%로 수정
-            } else {
-                // 모달 높이가 창 높이보다 큰 경우는 상단 여백을 5%로 고정
-                modalContent.css("margin-top", "5%");
-            }
+            // 모달을 중앙에 정렬하기 위한 상단 위치 계산
+            var topPosition = Math.max(0, (windowHeight - modalHeight) / 2) + $(window).scroll();
 
-            modalContent.css("position", "fixed");
-            modalContent.css("top", "50%");
-            modalContent.css("left", "50%");
-            modalContent.css("transform", "translate(-50%, -50%)");
+            modalContent.css({
+                "margin-top": topPosition + "px",
+                "position": "fixed",
+                "top": "50%",
+                "left": "50%",
+                "transform": "translate(-50%, -50%)"
+            });
         }
 
         // 창 크기가 변경될 때도 모달을 가운데로 정렬
@@ -529,7 +615,7 @@
 
             let imageUrl = isValidUrl(image) ? image : 'https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/7r5X/image/9djEiPBPMLu_IvCYyvRPwmZkM1g.jpg'
             let temp_html = `
-                <div class="col">
+                <div class="col" data-aos="flip-left">
                         <div class="card h-100" data-image = "${imageUrl}" data-id="${doc.id}">
                             <img src="${imageUrl}"
                                 class="card-img-top" alt="...">
@@ -566,35 +652,53 @@
 </head>
 
 <body>
-    <header>
+    <div class="contentscroll">
         <h1>비공일</h1>
-    </header>
+    </div>
+    <div class="contentscroll">
+        <h1>test2</h1>
+        <div class="content-container">
+            <div class="image-container">
+                <img src="" alt="이미지">
+            </div>
 
-    <div class="content-container">
-        <div class="image-container">
-            <img src="" alt="이미지">
-        </div>
-        <div class="text-container">
-            <h3>팀 소개</h3>
-            <p>팀이름 : 비공일</p>
-            <p>팀특징 : 열정!열정!!열정!!!</p>
-            <p>팀목표 : 프로젝트 마지막까지 서로 끌어주고 밀어주고 잘 굴러가는 팀이 되자.</p>
-            <p>우리 팀의 약속</p>
-            <p>지각, 무단이탈 등 중도 하차/포기 금지</p>
-            <p>좋은 건 다같이.. 모르는 것도 다 같이..</p>
-            <p>아.., 후…, 씁…?, 하… 금지</p>
-            <p>일단 해 보기</p>
-            <p>일정 생기면 사전에 팀원에게 알리기</p>
+            <div class="text-container">
+                <h3>팀 소개</h3>
+                <p>팀이름 : 비공일</p>
+                <p>팀특징 : 열정!열정!!열정!!!</p>
+                <p>팀목표 : 프로젝트 마지막까지 서로 끌어주고 밀어주고 잘 굴러가는 팀이 되자.</p>
+                <p>우리 팀의 약속</p>
+                <p>지각, 무단이탈 등 중도 하차/포기 금지</p>
+                <p>좋은 건 다같이.. 모르는 것도 다 같이..</p>
+                <p>아.., 후…, 씁…?, 하… 금지</p>
+                <p>일단 해 보기</p>
+                <p>일정 생기면 사전에 팀원에게 알리기</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+
+            </div>
         </div>
     </div>
-    <!-- 상세 보기 링크 -->
-    <div class="content-save">
-        <button type="button" id="myLink" class="btn btn-primary">등록하기</button>
-    </div>
-    <div class="mycards">
-        <div id="update_card" class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <!-- <div class="card h-100">
+    <div class="contentscroll">
+        <h1>test3</h1>
+
+        <div class="mycards">
+            <div id="update_card" class="row row-cols-1 row-cols-md-4 g-4">
+                <div class="col">
+                    <!-- <div class="card h-100">
                     <img src="https://images.unsplash.com/photo-1446768500601-ac47e5ec3719?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80"
                         class="card-img-top" alt="...">
                     <div class="card-body">
@@ -602,11 +706,17 @@
                         <p class="card-text"></p>
                     </div>
                 </div> -->
+                </div>
             </div>
+
         </div>
-
     </div>
-
+    <div class="contentscroll">
+        <!-- 상세 보기 링크 -->
+        <div class="content-save">
+            <button type="button" id="myLink" class="btn btn-primary">등록하기</button>
+        </div>
+    </div>
     <!-- 모달 -->
     <div id="myModal" class="modal">
         <div class="modal-content">
